@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/BooBooStory/config/database"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,7 +12,8 @@ func helloHandler(c *gin.Context) {
 }
 
 func main() {
-		router := gin.Default()	
+		database.ConnectDatabase()
+		router := gin.Default()
 		router.GET("/hello", helloHandler)
 		router.Run(":8080")
 }
