@@ -1,0 +1,13 @@
+package models
+
+type UserRegister struct {
+	Name								string `json:"name" binding:"required"`
+	Email								string `json:"email" binding:"required,email"`
+	Password						string `json:"password" binding:"required"`
+	ConfirmPassword			string `json:"confirm_password" binding:"required,eqfield=Password"`
+}
+
+type UserLogin struct {
+	Email    string `json:"email" binding:"required,email"`
+	Password string `json:"password" binding:"required"`
+}
