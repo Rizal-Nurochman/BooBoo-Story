@@ -8,11 +8,13 @@ import (
 
 // Struct response standar
 type Response struct {
-	Status  string      `json:"status"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
-	Meta    interface{} `json:"meta,omitempty"`
+  Status  string      `json:"status"`   // success / error
+  Message string      `json:"message"`  // pesan singkat
+  Data    interface{} `json:"data,omitempty"`
+  Errors  interface{} `json:"errors,omitempty"`
+  Meta    interface{} `json:"meta,omitempty"`
 }
+
 
 // Middleware untuk intercept response
 func ResponseMiddleware() gin.HandlerFunc {
@@ -35,11 +37,12 @@ func ResponseMiddleware() gin.HandlerFunc {
 }
 
 // Helper biar handler lebih singkat
-func JSON(c *gin.Context, status string, message string, data interface{}, meta interface{}) {
-	c.JSON(http.StatusOK, Response{
-		Status:  status,
-		Message: message,
-		Data:    data,
-		Meta:    meta,
-	})
+func JSON(c *gin.Context, httpStatus int, status string, message string, data interface{}, errors interface{}, meta interface{}) {
+  c.JSON(httpStatus, Response{
+      Status:  status,
+      Message: message,
+      Data:    data,
+      Errors:  errors,
+      Meta:    meta,
+  })
 }
