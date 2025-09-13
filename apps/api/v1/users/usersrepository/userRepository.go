@@ -1,4 +1,4 @@
-package repository
+package usersrepository
 
 import (
 	"github.com/BooBooStory/config/models"

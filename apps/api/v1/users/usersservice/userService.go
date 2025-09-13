@@ -1,4 +1,4 @@
-package service
+package usersservice
 
 import (
 	"errors"
@@ -6,21 +6,24 @@ import (
 	"time"
 
 	"github.com/BooBooStory/config/models"
-	"github.com/BooBooStory/v1/users/repository"
+	"github.com/BooBooStory/v1/users/usersrepository"
 	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
+	"google.golang.org/api/oauth2/v2"
+	"gorm.io/gorm"
 )
 
 type UserService interface {
 	DaftarAkun(user models.UserRegister) (*models.User, error)
 	LoginAkun(user models.UserLogin) (*models.User, string, error)
+	LoginOrRegisterWithGoogle(googleUserInfo *oauth2.Userinfo) (*models.User, string, error)
 }
 
 type userService struct {
-	repository repository.UserRepository
+	repository usersrepository.UserRepository
 }
 
-func NewUserService(repository repository.UserRepository) *userService {
+func NewUserService(repository usersrepository.UserRepository) *userService {
 	return &userService{repository}
 }
 
@@ -89,4 +92,37 @@ func (s *userService) LoginAkun(user models.UserLogin) (*models.User, string, er
 	}
 
 	return userDitemukan, token, nil
+}
+
+func (s *userService) LoginOrRegisterWithGoogle(googleUserInfo *oauth2.Userinfo) (*models.User, string, error) {
+	// 1. Cek apakah user dengan email ini sudah ada di database
+	user, err := s.repository.FindByEmail(googleUserInfo.Email)
+
+	// Jika tidak ditemukan, buat user baru (Registrasi Otomatis)
+	if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
+		newUser := &models.User{
+			Name:  googleUserInfo.Name,
+			Email: googleUserInfo.Email,
+			// Password bisa dikosongkan atau diisi random string,
+			// karena loginnya tidak akan pakai password.
+			Password: "",
+		}
+
+		createdUser, err := s.repository.CreateUser(newUser)
+		if err != nil {
+			return nil, "", err
+		}
+		user = createdUser
+	} else if err != nil {
+		// Handle error database lain
+		return nil, "", err
+	}
+
+	// 2. Jika user sudah ada atau berhasil dibuat, generate JWT token internal kita
+	token, err := s.GenerateTokenJWT(uint(user.ID)) // Perhatikan konversi tipe ID
+	if err != nil {
+		return nil, "", err
+	}
+
+	return user, token, nil
 }
