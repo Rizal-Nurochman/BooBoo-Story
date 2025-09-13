@@ -8,7 +8,7 @@ import (
 
 // User merepresentasikan tabel 'users'
 type User struct {
-	ID        string `gorm:"primaryKey"`
+	ID        uint `gorm:"primaryKey"`
 	Name      string
 	Email     string `gorm:"unique"`
 	Password  string

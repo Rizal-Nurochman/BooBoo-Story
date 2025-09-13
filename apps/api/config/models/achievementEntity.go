@@ -4,7 +4,7 @@ import "gorm.io/datatypes"
 
 // Achievement merepresentasikan tabel 'achievements'
 type Achievement struct {
-	ID          string `gorm:"primaryKey"`
+	ID          uint `gorm:"primaryKey"`
 	Name        string
 	Description string
 	AssetUrl    string

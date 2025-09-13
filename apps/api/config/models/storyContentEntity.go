@@ -4,8 +4,8 @@ import "time"
 
 // StoryContent merepresentasikan tabel 'story_contents'
 type StoryContent struct {
-	ID        string `gorm:"primaryKey"`
-	StoryID   string
+	ID        uint `gorm:"primaryKey"`
+	StoryID   uint
 	PageOrder int
 	Text      string
 	ImageUrl  string

@@ -4,7 +4,7 @@ import "time"
 
 // ShopItem merepresentasikan item di toko
 type ShopItem struct {
-	ID        string `gorm:"primaryKey"`
+	ID        uint `gorm:"primaryKey"`
 	Name      string
 	Type      string
 	Price     int

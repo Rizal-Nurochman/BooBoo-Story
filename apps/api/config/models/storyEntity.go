@@ -4,14 +4,14 @@ import "time"
 
 // Story merepresentasikan tabel 'stories'
 type Story struct {
-	ID          string `gorm:"primaryKey"`
+	ID          uint `gorm:"primaryKey"`
 	Title       string
 	Description string
 	Approved    bool
 	AgeLevel    string
 	Difficulty  int
 	CreatedAt   time.Time
-	UserID      string // Diganti dari AuthorID untuk konsistensi
+	UserID      uint // Diganti dari AuthorID untuk konsistensi
 	CategoryID  uint
 
 	// Relasi Belongs To

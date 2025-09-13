@@ -4,7 +4,7 @@ import "time"
 
 // UserAchievement adalah join table antara User dan Achievement
 type UserAchievement struct {
-	ID            string `gorm:"primaryKey"`
+	ID            uint `gorm:"primaryKey"`
 	UserID        string
 	AchievementID string
 	EarnedAt      time.Time

@@ -4,9 +4,9 @@ import "time"
 
 // UserInventory adalah join table antara User dan ShopItem
 type UserInventory struct {
-	ID         string `gorm:"primaryKey"`
-	UserID     string
-	ItemID     string
+	ID         uint `gorm:"primaryKey"`
+	UserID     uint
+	ItemID     uint
 	AcquiredAt time.Time
 
 	// Relasi Belongs To

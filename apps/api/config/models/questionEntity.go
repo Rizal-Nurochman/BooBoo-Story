@@ -5,7 +5,7 @@ import "gorm.io/gorm"
 // Question merepresentasikan satu pertanyaan dalam sebuah quiz
 type Question struct {
 	gorm.Model
-	QuizID   string
+	QuizID   uint
 	Question string
 
 	// Relasi Belongs To

@@ -4,9 +4,9 @@ import "time"
 
 // Progress merepresentasikan progres membaca user
 type Progress struct {
-	ID           string `gorm:"primaryKey"`
-	UserID       string
-	StoryID      string
+	ID           uint `gorm:"primaryKey"`
+	UserID       uint
+	StoryID      uint
 	CurrentPage  int
 	Completed    bool
 	EarnedPoints int

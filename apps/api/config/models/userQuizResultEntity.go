@@ -4,9 +4,9 @@ import "time"
 
 // UserQuizResult merepresentasikan hasil quiz seorang user
 type UserQuizResult struct {
-	ID          string `gorm:"primaryKey"`
-	UserID      string
-	QuizID      string
+	ID          uint `gorm:"primaryKey"`
+	UserID      uint
+	QuizID      uint
 	Score       int
 	TimeSpentMs int
 	AnsweredAt  time.Time

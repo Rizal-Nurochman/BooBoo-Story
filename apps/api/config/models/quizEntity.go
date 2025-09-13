@@ -2,8 +2,8 @@ package models
 
 // Quiz merepresentasikan tabel 'quizzes'
 type Quiz struct {
-	ID         string `gorm:"primaryKey"`
-	StoryID    string
+	ID         uint `gorm:"primaryKey"`
+	StoryID    uint
 	Difficulty int
 
 	// Relasi Belongs To
