@@ -8,6 +8,7 @@ import (
 type UserRepository interface {
 	FindByEmail(email string) (*models.User, error)
 	CreateUser(user *models.User) (*models.User, error)
+	FindByID(ID uint) (*models.User, error)
 }
 
 type userRepository struct {
@@ -33,4 +34,13 @@ func (r *userRepository) CreateUser(user *models.User) (*models.User, error) {
 		return nil, err
 	}
 	return user, nil
+}
+
+func (r *userRepository) FindByID(ID uint) (*models.User, error) {
+    var user models.User
+    err := r.db.First(&user, ID).Error
+    if err != nil {
+        return nil, err
+    }
+    return &user, nil
 }

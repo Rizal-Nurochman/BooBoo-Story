@@ -53,9 +53,12 @@ func (h *userHandler) LoginHandler(c *gin.Context) {
 		return
 	}
 
+	// Set cookie dengan token JWT
+	c.SetCookie("Authorization", token, 3600*24, "/", "localhost", false, true)
+
 	utils.JSON(c, http.StatusOK, "success", "berhasil login", gin.H{
-		"user":  userDitemukan,
-		"token": token,
+		"id":   userDitemukan.ID,
+		"name": userDitemukan.Name,
 	}, nil, nil)
 }
 
@@ -105,9 +108,18 @@ func (h *userHandler) GoogleCallbackHandler(c *gin.Context, oauthConfig *oauth2.
 		return
 	}
 
-	// 5. Kirim response sukses dengan JWT token aplikasi Anda
+	c.SetCookie("Authorization", appToken, 3600*24, "/", "localhost", false, true)
+
 	utils.JSON(c, http.StatusOK, "success", "Successfully logged in with Google", gin.H{
-		"user":  user,
-		"token": appToken,
+		"id":   user.ID,
+		"name": user.Name,
 	}, nil, nil)
+}
+
+// Endpoint baru untuk Logout
+func (h *userHandler) LogoutHandler(c *gin.Context) {
+	// Set cookie dengan maxAge negatif untuk menghapusnya
+	c.SetCookie("Authorization", "", -1, "/", "localhost", false, true)
+
+	utils.JSON(c, http.StatusOK, "success", "berhasil logout", nil, nil, nil)
 }

@@ -35,9 +35,14 @@ func (s *userService) DaftarAkun(user models.UserRegister) (*models.User, error)
 		// Password harus di-hash sebelum disimpan
 	}
 
-	_, err := s.repository.FindByEmail(user.Email)
-	if err == nil {
-		return nil, errors.New("email sudah terdaftar")
+	userDitemukan, err := s.repository.FindByEmail(user.Email)
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+    // Handle error database yang tidak terduga (bukan user tidak ditemukan)
+    return nil, err
+	}
+	if userDitemukan != nil {
+			// Jika user ditemukan tanpa error
+			return nil, errors.New("email sudah terdaftar")
 	}
 
 	passwordHash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)

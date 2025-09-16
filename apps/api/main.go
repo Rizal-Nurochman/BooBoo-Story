@@ -48,6 +48,7 @@ func main() {
 		{
 			api.POST("/register", userHandler.RegisterHandler)
 			api.POST("/login", userHandler.LoginHandler)
+			api.GET("/logout", userHandler.LogoutHandler)
 
 			// Rute baru untuk Google OAuth
 			auth := api.Group("/auth/google")
