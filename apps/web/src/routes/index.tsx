@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
+import HeroSection from '~/components/home/HeroSection'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -7,8 +7,8 @@ export const Route = createFileRoute('/')({
 
 function App() {
   return (
-    <div className="w-full max-w-xl">
-
+    <div className="w-full max-w-6xl mx-auto ">
+      <HeroSection />
     </div>
   )
 }

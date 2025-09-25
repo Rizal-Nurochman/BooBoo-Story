@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
-import { Route as ApiDemoTqTodosRouteImport } from './routes/api.demo-tq-todos'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
@@ -27,11 +26,6 @@ const IndexRoute = IndexRouteImport.update({
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   id: '/demo/tanstack-query',
   path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiDemoTqTodosRoute = ApiDemoTqTodosRouteImport.update({
-  id: '/api/demo-tq-todos',
-  path: '/api/demo-tq-todos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
@@ -71,7 +65,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
-  '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -82,7 +75,6 @@ export interface FileRoutesByTo {
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
-  '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -94,7 +86,6 @@ export interface FileRoutesById {
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/register': typeof authRegisterRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
-  '/api/demo-tq-todos': typeof ApiDemoTqTodosRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -107,7 +98,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/api/demo-names'
-    | '/api/demo-tq-todos'
     | '/demo/tanstack-query'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -118,7 +108,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/api/demo-names'
-    | '/api/demo-tq-todos'
     | '/demo/tanstack-query'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -129,7 +118,6 @@ export interface FileRouteTypes {
     | '/(auth)/login'
     | '/(auth)/register'
     | '/api/demo-names'
-    | '/api/demo-tq-todos'
     | '/demo/tanstack-query'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -141,7 +129,6 @@ export interface RootRouteChildren {
   authLoginRoute: typeof authLoginRoute
   authRegisterRoute: typeof authRegisterRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
-  ApiDemoTqTodosRoute: typeof ApiDemoTqTodosRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -161,13 +148,6 @@ declare module '@tanstack/react-router' {
       path: '/demo/tanstack-query'
       fullPath: '/demo/tanstack-query'
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/demo-tq-todos': {
-      id: '/api/demo-tq-todos'
-      path: '/api/demo-tq-todos'
-      fullPath: '/api/demo-tq-todos'
-      preLoaderRoute: typeof ApiDemoTqTodosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/demo-names': {
@@ -221,7 +201,6 @@ const rootRouteChildren: RootRouteChildren = {
   authLoginRoute: authLoginRoute,
   authRegisterRoute: authRegisterRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
-  ApiDemoTqTodosRoute: ApiDemoTqTodosRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
