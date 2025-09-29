@@ -107,7 +107,7 @@ code {
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-
+  --font-Inter: 'Inter', sans-serif;
   --font-fredoka: 'Fredoka', sans-serif;
   --font-quicksand: 'Quicksand', sans-serif;
 }
@@ -121,5 +121,8 @@ code {
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-fredoka;
+  }
+  p{
+    @apply font-quicksand
   }
 }

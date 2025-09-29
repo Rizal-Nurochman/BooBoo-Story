@@ -1,29 +1,93 @@
-import { Link } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router";
+import { motion } from "motion/react";
+import { 
+  staggerContainer,
+  slideUp,
+  fadeIn,
+  scaleIn,
+  buttonTap
+} from "@/lib/animations";
+
+
 
 const HeroSection = () => {
-  return (
-    <div className="w-full flex items-center flex-col gap-8 pt-32 pb-8 justify-center">
-        <h1 className="text-5xl font-extrabold text-center">Belajar, bermain, dan berkembang bersama BooBoo Story!</h1>
-        <img src='/images/home/landing-page.svg' />
-        <p className="text-5xl font-bold text-center">
-            Siapkah kamu belajar bersama BooBoo?
-        </p>
-        <div className="flex gap-4 w-full max-w-md mx-auto">
-            <Link 
-              to="/register" 
-              className="flex-1 py-3 rounded-lg shadow-lg shadow-accent-foreground/50 bg-primary text-white text-lg font-semibold text-center tracking-wide hover:scale-[1.02] active:scale-[0.98] transition-all duration-150"
-            >
-                Ikut Petualangan!
-            </Link>
-            <Link 
-              to="/login" 
-              className="flex-1 py-3 rounded-lg border-2 border-primary text-center text-lg font-semibold tracking-wide hover:bg-primary/5 hover:scale-[1.02] active:scale-[0.98] transition-all duration-150"
-            >
-                Ayo Mulai
-            </Link>
-        </div>
-    </div>
-  )
-}
 
-export default HeroSection
+  return (
+    <motion.div 
+      className="w-full max-w-6xl mx-auto flex items-center flex-col gap-6 sm:gap-8 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-8 justify-center"
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+    >
+      <motion.h1 
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center leading-tight"
+        variants={slideUp}
+      >
+        Belajar, bermain, dan berkembang bersama BooBoo Story!
+      </motion.h1>
+      
+      <motion.img 
+        src="/images/home/landing-page.svg" 
+        className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
+        variants={scaleIn}
+        whileHover={{
+          scale: 1.05,
+          transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] },
+        }}
+      />
+      
+      <motion.p 
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center leading-tight"
+        variants={slideUp}
+      >
+        Siapkah kamu belajar bersama BooBoo?
+      </motion.p>
+      
+      <motion.div 
+        className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-xs sm:max-w-md mx-auto"
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+      >
+        <motion.div 
+          whileHover={{ 
+            scale: 1.02, 
+            y: -2,
+            transition: { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }
+          }} 
+          whileTap={buttonTap}
+          className="flex-1"
+        >
+          <Link 
+            to="/register" 
+            className="block py-3 rounded-lg shadow-lg shadow-accent-foreground/50 bg-primary text-white text-lg font-semibold text-center tracking-wide"
+          >
+            Ikut Petualangan!
+          </Link>
+        </motion.div>
+
+        <motion.div 
+          whileHover={{ 
+            scale: 1.02, 
+            y: -2,
+            transition: { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }
+          }} 
+          whileTap={buttonTap}
+          className="flex-1"
+        >
+          <Link 
+            to="/login" 
+            className="block py-3 rounded-lg border-2 border-primary text-lg font-semibold text-center tracking-wide hover:bg-primary/5"
+          >
+            Ayo Mulai
+          </Link>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default HeroSection;

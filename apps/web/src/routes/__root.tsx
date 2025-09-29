@@ -14,6 +14,8 @@ import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
 
+import BackToTop from '@/components/layout/BackToTop'
+
 interface MyRouterContext {
   queryClient: QueryClient
 }
@@ -64,6 +66,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             TanStackQueryDevtools,
           ]}
         />
+        <BackToTop />
         <Scripts />
       </body>
     </html>

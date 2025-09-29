@@ -3,32 +3,26 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
-import ViteFonts from 'vite-plugin-fonts'
+import { VitePluginFonts } from 'vite-plugin-fonts'
 
-const config = defineConfig({
+export default defineConfig({
   plugins: [
-    // this is the plugin that enables path aliases
     tailwindcss(),
     tanstackStart(),
     viteReact(),
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
     }),
-    ViteFonts({
+    VitePluginFonts({
       google: {
         families: [
-          {
-            name: 'Fredoka',
-            styles: 'wght@300..700',
-          },
-                    {
-            name: 'Quicksand',
-            styles: 'wght@300..700',
-          },
+          { name: 'Fredoka', styles: 'wght@300..700' },
+          { name: 'Quicksand', styles: 'wght@300..700' },
+          { name: 'Inter', styles: 'wght@100..900' }, 
         ],
       },
+      // @ts-ignore
+      enforce: 'pre',
     }),
   ],
 })
-
-export default config

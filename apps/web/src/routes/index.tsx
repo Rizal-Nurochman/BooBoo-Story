@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import HeroSection from '~/components/home/HeroSection'
+import FeatureSection from '@/components/home/FeatureSection'
+import HeroSection from '@/components/home/HeroSection'
+import HighlightSection from '@/components/home/HighlightSection'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -7,8 +9,10 @@ export const Route = createFileRoute('/')({
 
 function App() {
   return (
-    <div className="w-full max-w-6xl mx-auto ">
+    <div className="w-full mx-auto ">
       <HeroSection />
+      <FeatureSection />
+      <HighlightSection />
     </div>
   )
 }
