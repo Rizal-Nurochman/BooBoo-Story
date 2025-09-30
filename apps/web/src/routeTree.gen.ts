@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
+import { Route as ApiAiRouteImport } from './routes/api/ai'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
 import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
@@ -31,6 +32,11 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
 const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
   id: '/api/demo-names',
   path: '/api/demo-names',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiRoute = ApiAiRouteImport.update({
+  id: '/api/ai',
+  path: '/api/ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const authRegisterRoute = authRegisterRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof authForgotPasswordRoute
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
+  '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof authForgotPasswordRoute
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
+  '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/(auth)/forgot-password': typeof authForgotPasswordRoute
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/register': typeof authRegisterRoute
+  '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
+    | '/api/ai'
     | '/api/demo-names'
     | '/demo/tanstack-query'
     | '/demo/start/api-request'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
+    | '/api/ai'
     | '/api/demo-names'
     | '/demo/tanstack-query'
     | '/demo/start/api-request'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/(auth)/forgot-password'
     | '/(auth)/login'
     | '/(auth)/register'
+    | '/api/ai'
     | '/api/demo-names'
     | '/demo/tanstack-query'
     | '/demo/start/api-request'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   authForgotPasswordRoute: typeof authForgotPasswordRoute
   authLoginRoute: typeof authLoginRoute
   authRegisterRoute: typeof authRegisterRoute
+  ApiAiRoute: typeof ApiAiRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/api/demo-names'
       fullPath: '/api/demo-names'
       preLoaderRoute: typeof ApiDemoNamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai': {
+      id: '/api/ai'
+      path: '/api/ai'
+      fullPath: '/api/ai'
+      preLoaderRoute: typeof ApiAiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(auth)/register': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   authForgotPasswordRoute: authForgotPasswordRoute,
   authLoginRoute: authLoginRoute,
   authRegisterRoute: authRegisterRoute,
+  ApiAiRoute: ApiAiRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,

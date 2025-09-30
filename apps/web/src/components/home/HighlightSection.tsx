@@ -11,7 +11,7 @@ import {
 const childrenData = [
   {
     id: 1,
-    name: "Child 1",
+    name: "Anak 1",
     image: "/images/home/child-1.png",
     icon: "/images/home/ic-1.png",
     background: "#E5D4FF",
@@ -19,7 +19,7 @@ const childrenData = [
   },
   {
     id: 2,
-    name: "Child 2",
+    name: "Anak 2",
     image: "/images/home/child-2.png",
     icon: "/images/home/ic-2.png",
     background: "#FFD966",
@@ -27,7 +27,7 @@ const childrenData = [
   },
   {
     id: 3,
-    name: "Child 3",
+    name: "Anak 3",
     image: "/images/home/child-3.png",
     icon: "/images/home/ic-3.png",
     background: "#9B7BFF",
@@ -49,17 +49,36 @@ const HighlightSection = () => {
           variants={slideRight}
           className="flex-1 space-y-4 md:space-y-6 text-center lg:text-left"
         >
-          <h3 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium font-Inter leading-tight">
-            Materi pembelajaran yang disediakan{" "}
-            <span className="text-[#9B7BFF] font-semibold">menyenangkan</span>{" "}
-            untuk anak-anak.
-          </h3>
+
+        <h3 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium font-Inter leading-tight">
+          Materi pembelajaran yang disediakan{" "}
+          <motion.span
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative inline-flex items-center"
+          >
+            <span className="relative z-10 text-[#9B7BFF] font-semibold px-3 py-1">
+              menyenangkan
+            </span>
+            <motion.span
+              initial={{ rotate: -10, scale: 0 }}
+              whileInView={{ rotate: -2, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="absolute inset-0 rounded-full border-4 border-yellow-500"
+            />
+          </motion.span>{" "}
+          untuk anak-anak.
+        </h3>
+
           <motion.p
             variants={fadeIn}
             className="text-base md:text-lg lg:text-xl xl:text-2xl font-medium text-gray-500 leading-relaxed"
           >
-            Don't worry! Your children will be having a fun time while learning
-            with our materials that are easy to understand.
+            Jangan khawatir! Anak Anda akan belajar sambil bersenang-senang
+            dengan materi kami yang mudah dipahami.
           </motion.p>
 
           <motion.div variants={slideUp}>
@@ -67,7 +86,7 @@ const HighlightSection = () => {
               to="/login"
               className="inline-flex gap-3 md:gap-4 items-center border-2 border-[#9B7BFF]/80 py-2 md:py-3 px-4 md:px-6 text-[#9B7BFF] rounded-full cursor-pointer text-base md:text-lg font-semibold hover:bg-[#9B7BFF]/5 transition-colors duration-300"
             >
-              Learn More
+              Pelajari Lebih Lanjut
               <span className="size-8 md:size-10 text-white rounded-full flex items-center justify-center bg-[#9B7BFF] hover:scale-110 transition-transform duration-300">
                 <MoveUpRight className="w-4 h-4 md:w-5 md:h-5" />
               </span>
@@ -77,7 +96,7 @@ const HighlightSection = () => {
 
         <motion.div
           variants={fadeIn}
-          className="flex-1 w-full rootate- max-w-xl flex flex-col gap-4 md:gap-6 lg:gap-8 items-center lg:items-end"
+          className="flex-1 w-full max-w-xl flex flex-col gap-4 md:gap-6 lg:gap-8 items-center lg:items-end"
         >
           {childrenData.map((child, index) => (
             <motion.div
