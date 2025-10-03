@@ -1,6 +1,5 @@
 import { Variants } from "motion/react";
 
-// 🔑 Definisi cubic bezier sebagai tuple (bukan number[])
 const easeOutFast: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 const easeInOut: [number, number, number, number] = [0.4, 0, 0.2, 1];
 const easeOutSlow: [number, number, number, number] = [0.22, 1, 0.36, 1];
