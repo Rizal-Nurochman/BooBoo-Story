@@ -14,7 +14,7 @@ const HeroSection = () => {
 
   return (
     <motion.div 
-      className="w-full max-w-6xl mx-auto flex items-center flex-col gap-6 sm:gap-8 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 lg:pb-16 px-4 sm:px-6 lg:px-8 justify-center"
+      className="w-full max-w-7xl mx-auto flex items-center flex-col gap-6 sm:gap-8 pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 lg:pb-16 px-4 sm:px-6 lg:px-8 justify-center"
       variants={staggerContainer}
       initial="hidden"
       whileInView="visible"
