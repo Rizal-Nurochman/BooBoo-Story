@@ -62,7 +62,7 @@ const HeroSection = () => {
           className="flex-1"
         >
           <Link 
-            to="/register" 
+            to="/auth/register" 
             className="block py-3 rounded-lg shadow-lg shadow-accent-foreground/50 bg-primary text-white text-lg font-semibold text-center tracking-wide"
           >
             Ikut Petualangan!
@@ -79,7 +79,7 @@ const HeroSection = () => {
           className="flex-1"
         >
           <Link 
-            to="/login" 
+            to="/auth/login" 
             className="block py-3 rounded-lg border-2 border-primary text-lg font-semibold text-center tracking-wide hover:bg-primary/5"
           >
             Ayo Mulai

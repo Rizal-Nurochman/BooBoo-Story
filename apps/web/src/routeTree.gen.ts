@@ -8,17 +8,27 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
+import { Route as AuthAuthLayoutRouteImport } from './routes/auth/_authLayout'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
-import { Route as authRegisterRouteImport } from './routes/(auth)/register'
-import { Route as authLoginRouteImport } from './routes/(auth)/login'
-import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
+import { Route as AuthAuthLayoutRegisterRouteImport } from './routes/auth/_authLayout/register'
+import { Route as AuthAuthLayoutLoginRouteImport } from './routes/auth/_authLayout/login'
+import { Route as AuthAuthLayoutForgotPasswordRouteImport } from './routes/auth/_authLayout/forgot-password'
 
+const AuthRouteImport = createFileRoute('/auth')()
+
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -29,6 +39,10 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthAuthLayoutRoute = AuthAuthLayoutRouteImport.update({
+  id: '/_authLayout',
+  getParentRoute: () => AuthRoute,
+} as any)
 const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
   id: '/api/demo-names',
   path: '/api/demo-names',
@@ -37,21 +51,6 @@ const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
 const ApiAiRoute = ApiAiRouteImport.update({
   id: '/api/ai',
   path: '/api/ai',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const authRegisterRoute = authRegisterRouteImport.update({
-  id: '/(auth)/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const authLoginRoute = authLoginRouteImport.update({
-  id: '/(auth)/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const authForgotPasswordRoute = authForgotPasswordRouteImport.update({
-  id: '/(auth)/forgot-password',
-  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
@@ -64,38 +63,58 @@ const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
   path: '/demo/start/api-request',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthAuthLayoutRegisterRoute = AuthAuthLayoutRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthAuthLayoutRoute,
+} as any)
+const AuthAuthLayoutLoginRoute = AuthAuthLayoutLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthAuthLayoutRoute,
+} as any)
+const AuthAuthLayoutForgotPasswordRoute =
+  AuthAuthLayoutForgotPasswordRouteImport.update({
+    id: '/forgot-password',
+    path: '/forgot-password',
+    getParentRoute: () => AuthAuthLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/forgot-password': typeof authForgotPasswordRoute
-  '/login': typeof authLoginRoute
-  '/register': typeof authRegisterRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
+  '/auth/login': typeof AuthAuthLayoutLoginRoute
+  '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/forgot-password': typeof authForgotPasswordRoute
-  '/login': typeof authLoginRoute
-  '/register': typeof authRegisterRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
+  '/auth/login': typeof AuthAuthLayoutLoginRoute
+  '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/(auth)/forgot-password': typeof authForgotPasswordRoute
-  '/(auth)/login': typeof authLoginRoute
-  '/(auth)/register': typeof authRegisterRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/auth': typeof AuthRouteWithChildren
+  '/auth/_authLayout': typeof AuthAuthLayoutRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/auth/_authLayout/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
+  '/auth/_authLayout/login': typeof AuthAuthLayoutLoginRoute
+  '/auth/_authLayout/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
 }
@@ -103,45 +122,47 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/forgot-password'
-    | '/login'
-    | '/register'
     | '/api/ai'
     | '/api/demo-names'
+    | '/auth'
     | '/demo/tanstack-query'
+    | '/auth/forgot-password'
+    | '/auth/login'
+    | '/auth/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/forgot-password'
-    | '/login'
-    | '/register'
     | '/api/ai'
     | '/api/demo-names'
+    | '/auth'
     | '/demo/tanstack-query'
+    | '/auth/forgot-password'
+    | '/auth/login'
+    | '/auth/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
   id:
     | '__root__'
     | '/'
-    | '/(auth)/forgot-password'
-    | '/(auth)/login'
-    | '/(auth)/register'
     | '/api/ai'
     | '/api/demo-names'
+    | '/auth'
+    | '/auth/_authLayout'
     | '/demo/tanstack-query'
+    | '/auth/_authLayout/forgot-password'
+    | '/auth/_authLayout/login'
+    | '/auth/_authLayout/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  authForgotPasswordRoute: typeof authForgotPasswordRoute
-  authLoginRoute: typeof authLoginRoute
-  authRegisterRoute: typeof authRegisterRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
+  AuthRoute: typeof AuthRouteWithChildren
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -149,6 +170,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -163,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/_authLayout': {
+      id: '/auth/_authLayout'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthAuthLayoutRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/api/demo-names': {
       id: '/api/demo-names'
       path: '/api/demo-names'
@@ -175,27 +210,6 @@ declare module '@tanstack/react-router' {
       path: '/api/ai'
       fullPath: '/api/ai'
       preLoaderRoute: typeof ApiAiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(auth)/register': {
-      id: '/(auth)/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof authRegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(auth)/login': {
-      id: '/(auth)/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof authLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(auth)/forgot-password': {
-      id: '/(auth)/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof authForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -212,16 +226,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoStartApiRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/_authLayout/register': {
+      id: '/auth/_authLayout/register'
+      path: '/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthAuthLayoutRegisterRouteImport
+      parentRoute: typeof AuthAuthLayoutRoute
+    }
+    '/auth/_authLayout/login': {
+      id: '/auth/_authLayout/login'
+      path: '/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthAuthLayoutLoginRouteImport
+      parentRoute: typeof AuthAuthLayoutRoute
+    }
+    '/auth/_authLayout/forgot-password': {
+      id: '/auth/_authLayout/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthAuthLayoutForgotPasswordRouteImport
+      parentRoute: typeof AuthAuthLayoutRoute
+    }
   }
 }
 
+interface AuthAuthLayoutRouteChildren {
+  AuthAuthLayoutForgotPasswordRoute: typeof AuthAuthLayoutForgotPasswordRoute
+  AuthAuthLayoutLoginRoute: typeof AuthAuthLayoutLoginRoute
+  AuthAuthLayoutRegisterRoute: typeof AuthAuthLayoutRegisterRoute
+}
+
+const AuthAuthLayoutRouteChildren: AuthAuthLayoutRouteChildren = {
+  AuthAuthLayoutForgotPasswordRoute: AuthAuthLayoutForgotPasswordRoute,
+  AuthAuthLayoutLoginRoute: AuthAuthLayoutLoginRoute,
+  AuthAuthLayoutRegisterRoute: AuthAuthLayoutRegisterRoute,
+}
+
+const AuthAuthLayoutRouteWithChildren = AuthAuthLayoutRoute._addFileChildren(
+  AuthAuthLayoutRouteChildren,
+)
+
+interface AuthRouteChildren {
+  AuthAuthLayoutRoute: typeof AuthAuthLayoutRouteWithChildren
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthAuthLayoutRoute: AuthAuthLayoutRouteWithChildren,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  authForgotPasswordRoute: authForgotPasswordRoute,
-  authLoginRoute: authLoginRoute,
-  authRegisterRoute: authRegisterRoute,
   ApiAiRoute: ApiAiRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
+  AuthRoute: AuthRouteWithChildren,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,

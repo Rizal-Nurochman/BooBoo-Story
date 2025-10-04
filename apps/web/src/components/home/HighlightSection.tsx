@@ -83,7 +83,7 @@ const HighlightSection = () => {
 
           <motion.div variants={slideUp}>
             <Link
-              to="/login"
+              to="/auth/login"
               className="inline-flex gap-3 md:gap-4 items-center border-2 border-[#9B7BFF]/80 py-2 md:py-3 px-4 md:px-6 text-[#9B7BFF] rounded-full cursor-pointer text-base md:text-lg font-semibold hover:bg-[#9B7BFF]/5 transition-colors duration-300"
             >
               Pelajari Lebih Lanjut

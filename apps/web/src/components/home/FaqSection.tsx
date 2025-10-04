@@ -56,7 +56,6 @@ const DropdownFaq = ({ parent, child, index }: DropdownFaqProps) => {
       className="w-full text-white rounded-3xl px-6 py-4 border-2 bg-foreground cursor-pointer transition-all hover:border-[#9B7BFF] hover:shadow-lg hover:shadow-[#9B7BFF]/20 relative overflow-hidden"
       onClick={() => setOpen(prev => !prev)}
     >
-      {/* Playful background effect */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-[#9B7BFF]/10 to-transparent"
         initial={{ x: "-100%" }}

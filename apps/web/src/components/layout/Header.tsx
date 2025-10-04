@@ -1,8 +1,13 @@
 import { buttonTap, fadeIn, slideDown } from "@/lib/animations";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
 const Header = () => {
+
+  const { pathname }=useLocation()
+
+  if(pathname.startsWith('/auth')) return null
+
   return (
     <motion.header 
       variants={slideDown}
@@ -37,7 +42,7 @@ const Header = () => {
         >
           <motion.button whileTap={buttonTap}>
             <Link
-              to="/login"
+              to="/auth/login"
               className="px-4 py-1.5 md:px-6 md:py-2 lg:px-8 lg:py-2 shadow-lg shadow-accent-foreground/50 rounded-md text-sm md:text-base lg:text-lg xl:text-xl font-semibold cursor-pointer bg-primary text-white hover:bg-primary/90 transition-all duration-100 flex items-center justify-center"
             >
               Login

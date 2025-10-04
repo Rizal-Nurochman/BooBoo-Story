@@ -1,5 +1,3 @@
-"use client"
-
 import { motion, Variants } from "motion/react"
 
 const arrAuthor = [
@@ -9,7 +7,6 @@ const arrAuthor = [
   { id: 4, name: "Savannah Nguyen", image: "/images/home/pic-4.png", role: "Writer" },
 ]
 
-// Animation variants with proper typing
 const easeOutFast: [number, number, number, number] = [0.25, 0.1, 0.25, 1]
 const bounceEase: [number, number, number, number] = [0.68, -0.55, 0.265, 1.55]
 
@@ -94,7 +91,6 @@ const AuthorSection = () => {
           }}
         />
         
-        {/* Heading with fade in animation */}
         <motion.h3 
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-Inter font-semibold text-white text-center leading-snug tracking-wide mb-12 sm:mb-14 md:mb-16 px-4"
           variants={fadeInUp}
@@ -109,7 +105,6 @@ const AuthorSection = () => {
           learning and grow into well-rounded individuals.
         </motion.h3>
 
-        {/* Author grid with stagger animation */}
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 justify-center"
           variants={staggerContainer}
