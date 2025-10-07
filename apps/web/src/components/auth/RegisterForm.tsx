@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { loginSchema, LoginSchemaType } from "@/schemas/auth.schema"
+import { registerSchema, registerSchemaType } from "@/schemas/auth.schema"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
@@ -9,19 +9,28 @@ import { Eye, EyeOff } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import GoogleIcon from "../ui/GoogleIcon"
 
-
-const LoginForm = () => {
+const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const form = useForm<LoginSchemaType>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<registerSchemaType>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      username: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   })
 
   const fields = [
+    {
+      name: "username",
+      label: "Username Account",
+      placeholder: "Masukkan username keren kamu",
+      type: "text",
+      showToggle: false,
+    },
     {
       name: "email",
       label: "Alamat Email",
@@ -35,10 +44,21 @@ const LoginForm = () => {
       placeholder: "Tulis password rahasiamu",
       type: showPassword ? "text" : "password",
       showToggle: true,
+      toggleFn: () => setShowPassword((prev) => !prev),
+      isShown: showPassword,
+    },
+    {
+      name: "confirmPassword",
+      label: "Konfirmasi Kata Sandi Rahasia",
+      placeholder: "Ulangi password rahasiamu",
+      type: showConfirmPassword ? "text" : "password",
+      showToggle: true,
+      toggleFn: () => setShowConfirmPassword((prev) => !prev),
+      isShown: showConfirmPassword,
     },
   ] as const
 
-  function onSubmit(data: LoginSchemaType) {
+  function onSubmit(data: registerSchemaType) {
     console.log("Selamat datang, penjelajah dunia digital! 🌈", data)
   }
 
@@ -52,17 +72,8 @@ const LoginForm = () => {
               control={form.control}
               name={field.name}
               render={({ field: f }) => (
-                <FormItem className="text-start">
-                  {field.type==='password'? (
-                    <div className="flex justify-between items-center">
-                        <FormLabel className="text-xl font-semibold">{field.label}</FormLabel>
-                        <Link to="/auth/forgot-password" className="text-sm text-blue-600 hover:underline">
-                            Lupa kata sandi?
-                        </Link>
-                    </div>
-                  ):
-                    <FormLabel className="text-xl font-semibold">{field.label}</FormLabel>
-                  }
+                <FormItem>
+                  <FormLabel className="text-xl font-semibold">{field.label}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
@@ -71,13 +82,13 @@ const LoginForm = () => {
                         className="py-2.5"
                         {...f}
                       />
-                      {field?.showToggle && (
+                      {field.showToggle && (
                         <button
                           type="button"
-                          onClick={() => setShowPassword((prev) => !prev)}
+                          onClick={field.toggleFn}
                           className="absolute right-3 top-2.5 text-muted-foreground"
                         >
-                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                          {field.isShown ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
                       )}
                     </div>
@@ -88,7 +99,9 @@ const LoginForm = () => {
             />
           ))}
 
-          <Button type="submit" className="w-full cursor-pointer">Masuk</Button>
+          <Button type="submit" className="w-full cursor-pointer">
+            Daftar
+          </Button>
 
           <div className="flex w-full items-center justify-center gap-2 text-sm text-muted-foreground">
             <div className="h-px bg-border flex-1 rounded-full" />
@@ -102,13 +115,13 @@ const LoginForm = () => {
             className="w-full flex cursor-pointer items-center justify-center gap-2"
           >
             <GoogleIcon className="h-4 w-4" />
-            Masuk dengan Google
+            Bergabung dengan Google
           </Button>
 
           <div className="text-center text-sm text-muted-foreground">
-            Belum punya akun?{" "}
-            <Link to="/auth/register" className="text-blue-600 font-medium hover:underline">
-              Daftar Sekarang
+            Sudah punya akun?{" "}
+            <Link to="/auth/login" className="text-blue-600 font-medium hover:underline">
+              Masuk Sekarang
             </Link>
           </div>
         </form>
@@ -117,4 +130,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default RegisterForm

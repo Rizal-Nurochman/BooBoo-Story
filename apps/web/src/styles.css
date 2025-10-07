@@ -112,6 +112,21 @@ code {
   --font-quicksand: 'Quicksand', sans-serif;
 }
 
+
+  @keyframes fall {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(30px) translateY(50vh) rotate(180deg);
+    }
+    100% {
+      transform: translateX(-30px) translateY(100vh) rotate(360deg);
+      opacity: 0.7;
+    }
+  }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -124,5 +139,11 @@ code {
   }
   p{
     @apply font-quicksand
+  }
+
+  .animate-fall {
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
   }
 }

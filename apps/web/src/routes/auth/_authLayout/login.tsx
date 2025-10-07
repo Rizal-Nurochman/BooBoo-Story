@@ -8,9 +8,19 @@ export const Route = createFileRoute('/auth/_authLayout/login')({
 function RouteComponent() {
   return <div className='w-full flex items-center gap-10'>
     <div className="flex-1 space-y-3 text-center">
-      <h1 className="text-3xl md:text-4xl font-bold text-primary">
-        Yuk, Masuk ke Dunia Cerita Bobo!
-      </h1>
+      <div className="flex justify-center">
+        <div className="relative inline-flex items-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-primary">
+            Yuk, Masuk ke Dunia Cerita Bobo!
+          </h1>
+          <img
+            src="/images/core/bobo.png"
+            alt="bobo img"
+            className="absolute right-[-3.5rem] md:right-[-4rem] top-1/2 -translate-y-1/2 w-14 md:w-20"
+          />
+        </div>
+      </div>
+
       <p className="text-muted-foreground text-base font-medium">
         Ayo bertualang bersama Bobo dan teman-teman di negeri dongeng penuh warna!  
         Di sini kamu bisa membaca kisah seru, belajar hal-hal baru, dan menemukan  
