@@ -12,6 +12,7 @@ type Env struct {
 	GoogleSecret     string
 	GoogleRedirect   string
 	JwtSecret        string
+	FE_URL           string
 }
 
 var Envs Env
@@ -28,5 +29,6 @@ func LoadEnv() {
 		GoogleSecret:   os.Getenv("GOOGLE_CLIENT_SECRET"),
 		GoogleRedirect: os.Getenv("GOOGLE_REDIRECT_URL"),
 		JwtSecret:      os.Getenv("JWT_SECRET_KEY"),
+		FE_URL:         os.Getenv("FE_URL"),
 	}
 }
