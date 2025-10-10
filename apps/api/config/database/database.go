@@ -33,7 +33,6 @@ func ConnectDatabase() {
 		log.Fatal("failed to connect database: " + err.Error())
 	}
 
-	// Lakukan migrasi setelah koneksi berhasil
 	err = DB.AutoMigrate(
 		&models.User{}, &models.Kreator{}, &models.Achievement{},
 		&models.Answer{}, &models.Category{}, &models.Progress{},
