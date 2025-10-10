@@ -7,10 +7,9 @@ type Kreator struct {
 	gorm.Model
 	IgUrl       string
 	TiktokUrl   string
-	Description string
+	Bio 		string
 	Name        string
 	UserID      uint	 `gorm:"unique"`
 
-	// Relasi Belongs To (Opsional, tapi baik untuk dimiliki)
 	User *User `gorm:"foreignKey:UserID"`
 }
