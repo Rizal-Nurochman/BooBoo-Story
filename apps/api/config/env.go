@@ -12,7 +12,7 @@ type Env struct {
 	GoogleSecret     string
 	GoogleRedirect   string
 	JwtSecret        string
-	FE_URL           string
+	FE_URL 			string
 }
 
 var Envs Env
