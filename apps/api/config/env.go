@@ -29,6 +29,6 @@ func LoadEnv() {
 		GoogleSecret:   os.Getenv("GOOGLE_CLIENT_SECRET"),
 		GoogleRedirect: os.Getenv("GOOGLE_REDIRECT_URL"),
 		JwtSecret:      os.Getenv("JWT_SECRET_KEY"),
-		FE_URL:         os.Getenv("FE_URL"),
+		FE_URL : os.Getenv("FE_URL")
 	}
 }
