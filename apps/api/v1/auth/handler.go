@@ -18,6 +18,8 @@ type Handler interface {
 	Logout(c *gin.Context)
 	GoogleLoginHandler(c *gin.Context)
 	GoogleCallbackHandler(c *gin.Context)
+	RequestPasswordReset(c *gin.Context)
+	VerifyAndResetPassword(c *gin.Context)
 }
 
 type handler struct {
@@ -61,7 +63,7 @@ func (h *handler) Login(c *gin.Context) {
 		utils.JSON(c, http.StatusUnauthorized, "error", err.Error(), nil, err.Error(), nil)
 		return
 	}
-	c.SetCookie("access_token", token, int((30*24*time.Hour).Seconds()), "/", "", false, true)
+	c.SetCookie("access_token", token, int((30 * 24 * time.Hour).Seconds()), "/", "", false, true)
 	utils.JSON(c, http.StatusOK, "success", "login successful", gin.H{
 		"id":    user.ID,
 		"name":  user.Name,
@@ -107,10 +109,44 @@ func (h *handler) GoogleCallbackHandler(c *gin.Context) {
 		utils.JSON(c, http.StatusBadRequest, "error", "failed to login or register with Google", nil, err.Error(), nil)
 		return
 	}
-	c.SetCookie("access_token", appToken, int((30*24*time.Hour).Seconds()), "/", "localhost", false, true)
+	c.SetCookie("access_token", appToken, int((30 * 24 * time.Hour).Seconds()), "/", "localhost", false, true)
 	utils.JSON(c, http.StatusOK, "success", "successfully logged in with Google", gin.H{
 		"id":    user.ID,
 		"name":  user.Name,
 		"email": user.Email,
 	}, nil, nil)
+}
+
+func (h *handler) RequestPasswordReset(c *gin.Context) {
+	var req validations.ForgotPasswordInput
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		utils.JSON(c, http.StatusBadRequest, "error", "Invalid request body", nil, err.Error(), nil)
+		return
+	}
+
+	err := h.service.RequestPasswordReset(req.Email)
+	if err != nil {
+		utils.JSON(c, http.StatusInternalServerError, "error", "An internal error occurred", nil, err.Error(), nil)
+		return
+	}
+
+	utils.JSON(c, http.StatusOK, "success", "If an account with that email exists, a password reset link has been sent.", nil, nil, nil)
+}
+
+func (h *handler) VerifyAndResetPassword(c *gin.Context) {
+	var req validations.ResetPasswordInput
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		utils.JSON(c, http.StatusBadRequest, "error", "Invalid request body", nil, err.Error(), nil)
+		return
+	}
+
+	err := h.service.VerifyAndResetPassword(req)
+	if err != nil {
+		utils.JSON(c, http.StatusBadRequest, "error", err.Error(), nil, err.Error(), nil)
+		return
+	}
+
+	utils.JSON(c, http.StatusOK, "success", "Password has been successfully reset.", nil, nil, nil)
 }

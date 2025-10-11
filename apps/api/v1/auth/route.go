@@ -2,6 +2,7 @@ package auth
 
 import (
 	"github.com/BooBooStory/config"
+	email "github.com/BooBooStory/utils"
 	"github.com/BooBooStory/v1/users"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
@@ -22,7 +23,8 @@ func AuthRouter(api *gin.RouterGroup, DB *gorm.DB) {
 	}
 
 	userRepo := users.NewRepository(DB)
-	authService := NewService(userRepo)
+	emailService := email.NewService()
+	authService := NewService(userRepo, emailService)
 	authHandler := NewHandler(authService, googleOauthConfig)
 
 	authGroup := api.Group("/auth")
@@ -32,5 +34,7 @@ func AuthRouter(api *gin.RouterGroup, DB *gorm.DB) {
 		authGroup.POST("/logout", authHandler.Logout)
 		authGroup.GET("/google/login", authHandler.GoogleLoginHandler)
 		authGroup.GET("/google/callback", authHandler.GoogleCallbackHandler)
+		authGroup.POST("/forgot-password", authHandler.RequestPasswordReset)
+		authGroup.POST("/reset-password", authHandler.VerifyAndResetPassword)
 	}
 }

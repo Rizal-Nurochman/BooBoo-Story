@@ -6,17 +6,18 @@ import (
 	"gorm.io/datatypes"
 )
 
-// User merepresentasikan tabel 'users'
 type User struct {
-	ID        uint `gorm:"primaryKey"`
+	ID        uint 										`gorm:"primaryKey"`
 	Name      string
-	Email     string `gorm:"unique"`
+	Email     string 									`gorm:"unique"`
 	Password  string
 	Role      string
 	Avatar    datatypes.JSON
 	Points    int
 	Streak    int
 	Level     int
+	ResetPasswordToken       		string `gorm:"index"`
+	ResetPasswordTokenExpiresAt time.Time
 	CreatedAt time.Time
 
 	// Relasi Has One
