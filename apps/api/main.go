@@ -11,9 +11,10 @@ import (
 )
 
 
-
 func main() {
 		database.ConnectDatabase()
+		utils.InitLogger()
+		
 		DB := database.DB
 		
 		config.LoadEnv()
