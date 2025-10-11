@@ -2,14 +2,12 @@ package models
 
 import "gorm.io/gorm"
 
-// Category merepresentasikan tabel 'categories'
 type Category struct {
 	gorm.Model
-	Name   string
-	UserID uint
-
-	// Relasi Belongs To
-	User User `gorm:"foreignKey:UserID"`
-	// Relasi Has Many
-	Stories []Story `gorm:"foreignKey:CategoryID"`
+	Name     string
+	UserID   uint
+	ParentID *uint
+	Parent   *Category  `gorm:"foreignKey:ParentID"`
+	Children []Category `gorm:"foreignKey:ParentID"`
+	Stories  []Story    `gorm:"foreignKey:CategoryID"`
 }

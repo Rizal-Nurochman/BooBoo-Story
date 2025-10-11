@@ -24,7 +24,6 @@ type User struct {
 	Kreator Kreator `gorm:"foreignKey:UserID"`
 	// Relasi Has Many
 	Stories          []Story           `gorm:"foreignKey:UserID"`
-	Categories       []Category        `gorm:"foreignKey:UserID"`
 	Progresses       []Progress        `gorm:"foreignKey:UserID"`
 	UserAchievements []UserAchievement `gorm:"foreignKey:UserID"`
 	UserInventories  []UserInventory   `gorm:"foreignKey:UserID"`
