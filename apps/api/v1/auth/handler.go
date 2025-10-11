@@ -45,6 +45,7 @@ func (h *handler) Register(c *gin.Context) {
 		utils.JSON(c, http.StatusBadRequest, "error", err.Error(), nil, err.Error(), nil)
 		return
 	}
+	
 	utils.JSON(c, http.StatusCreated, "success", "user registered successfully", gin.H{
 		"id":    user.ID,
 		"name":  user.Name,
