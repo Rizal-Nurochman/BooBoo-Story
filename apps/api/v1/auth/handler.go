@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	validations "github.com/BooBooStory/config/schemas"
+	validations "github.com/BooBooStory/config/validations"
 	"github.com/BooBooStory/utils"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"

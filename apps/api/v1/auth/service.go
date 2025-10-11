@@ -8,7 +8,7 @@ import (
 
 	"github.com/BooBooStory/config"
 	"github.com/BooBooStory/config/models"
-	validations "github.com/BooBooStory/config/schemas"
+	validations "github.com/BooBooStory/config/validations"
 	email "github.com/BooBooStory/utils"
 	"github.com/BooBooStory/v1/users"
 	"github.com/golang-jwt/jwt"
