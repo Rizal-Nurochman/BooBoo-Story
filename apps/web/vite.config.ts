@@ -22,7 +22,7 @@ export default defineConfig({
         ],
       },
       // @ts-ignore
-      enforce: 'pre',
+       order: 'pre',
     }),
   ],
 })

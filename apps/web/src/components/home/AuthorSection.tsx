@@ -98,11 +98,9 @@ const AuthorSection = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          We aim to help children{" "}
-          <span className="text-yellow-400 italic block mt-2">
-            discover the joy of creative
-          </span>
-          learning and grow into well-rounded individuals.
+          Kami ingin mengajak anak-anak
+          <span className="text-yellow-400 italic block mt-2">menjelajahi dunia imajinasi melalui cerita-cerita seru</span>
+          dan menemukan keseruan belajar dari setiap kisah yang menginspirasi.
         </motion.h3>
 
         <motion.div 
