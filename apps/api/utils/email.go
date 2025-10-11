@@ -37,7 +37,7 @@ func (s *service) SendPasswordResetEmail(toEmail, token string) error {
 	addr := fmt.Sprintf("%s:%s", s.smtpHost, s.smtpPort)
 	subject := "Reset Password Akun BooBooStory Anda"
 
-	resetLink := fmt.Sprintf("https://your-frontend-app.com/reset-password?token=%s", token)
+	resetLink := fmt.Sprintf("%s/reset-password?token=%s", config.Envs.FE_URL, token)
 
 	data := struct {
 		ResetLink string
