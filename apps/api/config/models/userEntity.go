@@ -21,7 +21,7 @@ type User struct {
 	CreatedAt time.Time
 
 	// Relasi Has One
-	Kreator Kreator `gorm:"foreignKey:UserID"`
+	Creator Creator `gorm:"foreignKey:UserID"`
 	// Relasi Has Many
 	Stories          []Story           `gorm:"foreignKey:UserID"`
 	Progresses       []Progress        `gorm:"foreignKey:UserID"`

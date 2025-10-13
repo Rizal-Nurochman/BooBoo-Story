@@ -3,7 +3,7 @@ package models
 import "gorm.io/gorm"
 
 // Kreator merepresentasikan profil tambahan untuk User
-type Kreator struct {
+type Creator struct {
 	gorm.Model
 	IgUrl       string
 	TiktokUrl   string
