@@ -1,8 +1,10 @@
 import React from 'react'
 
+
 const CreatorForm = () => {
   return (
-    <div>CreatorForm</div>
+    <div className=''>
+    </div>
   )
 }
 

@@ -21,6 +21,7 @@ import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api
 import { Route as AuthAuthLayoutRegisterRouteImport } from './routes/auth/_authLayout/register'
 import { Route as AuthAuthLayoutLoginRouteImport } from './routes/auth/_authLayout/login'
 import { Route as AuthAuthLayoutForgotPasswordRouteImport } from './routes/auth/_authLayout/forgot-password'
+import { Route as AuthAuthLayoutCreatorRouteImport } from './routes/auth/_authLayout/creator'
 
 const AuthRouteImport = createFileRoute('/auth')()
 
@@ -79,6 +80,11 @@ const AuthAuthLayoutForgotPasswordRoute =
     path: '/forgot-password',
     getParentRoute: () => AuthAuthLayoutRoute,
   } as any)
+const AuthAuthLayoutCreatorRoute = AuthAuthLayoutCreatorRouteImport.update({
+  id: '/creator',
+  path: '/creator',
+  getParentRoute: () => AuthAuthLayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/auth/_authLayout': typeof AuthAuthLayoutRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/auth/_authLayout/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/_authLayout/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/_authLayout/login': typeof AuthAuthLayoutLoginRoute
   '/auth/_authLayout/register': typeof AuthAuthLayoutRegisterRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/api/demo-names'
     | '/auth'
     | '/demo/tanstack-query'
+    | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
     | '/auth/register'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/api/demo-names'
     | '/auth'
     | '/demo/tanstack-query'
+    | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
     | '/auth/register'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/auth/_authLayout'
     | '/demo/tanstack-query'
+    | '/auth/_authLayout/creator'
     | '/auth/_authLayout/forgot-password'
     | '/auth/_authLayout/login'
     | '/auth/_authLayout/register'
@@ -247,16 +259,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthLayoutForgotPasswordRouteImport
       parentRoute: typeof AuthAuthLayoutRoute
     }
+    '/auth/_authLayout/creator': {
+      id: '/auth/_authLayout/creator'
+      path: '/creator'
+      fullPath: '/auth/creator'
+      preLoaderRoute: typeof AuthAuthLayoutCreatorRouteImport
+      parentRoute: typeof AuthAuthLayoutRoute
+    }
   }
 }
 
 interface AuthAuthLayoutRouteChildren {
+  AuthAuthLayoutCreatorRoute: typeof AuthAuthLayoutCreatorRoute
   AuthAuthLayoutForgotPasswordRoute: typeof AuthAuthLayoutForgotPasswordRoute
   AuthAuthLayoutLoginRoute: typeof AuthAuthLayoutLoginRoute
   AuthAuthLayoutRegisterRoute: typeof AuthAuthLayoutRegisterRoute
 }
 
 const AuthAuthLayoutRouteChildren: AuthAuthLayoutRouteChildren = {
+  AuthAuthLayoutCreatorRoute: AuthAuthLayoutCreatorRoute,
   AuthAuthLayoutForgotPasswordRoute: AuthAuthLayoutForgotPasswordRoute,
   AuthAuthLayoutLoginRoute: AuthAuthLayoutLoginRoute,
   AuthAuthLayoutRegisterRoute: AuthAuthLayoutRegisterRoute,

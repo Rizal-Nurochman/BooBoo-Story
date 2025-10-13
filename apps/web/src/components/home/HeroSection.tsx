@@ -21,7 +21,7 @@ const HeroSection = () => {
       viewport={{ once: true, margin: "-100px" }}
     >
       <motion.h1 
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center leading-tight"
+        className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center leading-tight"
         variants={slideUp}
       >
         Belajar, bermain, dan berkembang bersama BooBoo Story!
@@ -38,7 +38,7 @@ const HeroSection = () => {
       />
       
       <motion.p 
-        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center leading-tight"
+        className="text-xl sm:text-2xl md:text-3xl font-bold text-center leading-tight"
         variants={slideUp}
       >
         Siapkah kamu belajar bersama BooBoo?

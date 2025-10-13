@@ -12,7 +12,7 @@ export const Route = createFileRoute('/')({
 
 function App() {
   return (
-    <div className="w-full mx-auto ">
+    <div className="w-full mx-auto">
       <HeroSection />
       <FeatureSection />
       <HighlightSection />

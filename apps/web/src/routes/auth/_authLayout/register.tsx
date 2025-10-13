@@ -7,7 +7,7 @@ export const Route = createFileRoute('/auth/_authLayout/register')({
 
 function RouteComponent() {
   return (
-    <div className="w-full flex items-center gap-10">
+    <div className="w-full max-w-7xl flex items-center mx-auto pt-28 relative z-10 gap-10">
       <div className="flex-1 flex justify-center items-center">
         <img src="/images/auth/auth-child.png" alt="auth-child" />
       </div>

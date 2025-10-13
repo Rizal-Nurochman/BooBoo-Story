@@ -18,9 +18,7 @@ function AuthLayout() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#fef7e6]">
       <HeaderAuth />
-      <div className="w-full max-w-7xl mx-auto pt-28 relative z-10">
-        <Outlet />
-      </div>
+      <Outlet />
       {leaves.map((leaf, i) => (
         <img
           key={i}
