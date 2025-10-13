@@ -3,7 +3,7 @@ package models
 import "time"
 
 // Progress merepresentasikan progres membaca user
-type Progress struct {
+type ProgressRead struct {
 	ID           uint `gorm:"primaryKey"`
 	UserID       uint
 	StoryID      uint

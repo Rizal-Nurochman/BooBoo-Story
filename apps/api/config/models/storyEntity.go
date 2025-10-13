@@ -1,25 +1,32 @@
 package models
 
-import "time"
+import (
+	"time"
 
-// Story merepresentasikan tabel 'stories'
+	"gorm.io/gorm"
+)
+
 type Story struct {
-	ID          uint `gorm:"primaryKey"`
+	gorm.Model
 	Title       string
 	Description string
 	Approved    bool
 	AgeLevel    string
 	Difficulty  int
 	CreatedAt   time.Time
-	UserID      uint // Diganti dari AuthorID untuk konsistensi
-	CategoryID  uint
+	UserID      uint
 
 	// Relasi Belongs To
-	User     User     `gorm:"foreignKey:UserID"`
-	Category Category `gorm:"foreignKey:CategoryID"`
+	User *User `gorm:"foreignKey:UserID"`
+
+	// Relasi Many-to-Many ke Category
+	Categories []*Category `gorm:"many2many:story_categories;"`
+
 	// Relasi Has Many
-	Contents   []StoryContent         `gorm:"foreignKey:StoryID"`
-	RareWords  []StoryContentRareWord `gorm:"foreignKey:StoryID"`
-	Progresses []Progress             `gorm:"foreignKey:StoryID"`
-	Quizzes    []Quiz                 `gorm:"foreignKey:StoryID"`
+	Contents        []StoryContent         `gorm:"foreignKey:StoryID"`
+	RareWords       []StoryContentRareWord `gorm:"foreignKey:StoryID"`
+	ProgressReaders []ProgressRead         `gorm:"foreignKey:UserID"`
+
+	// Relasi One To One
+	Quiz *Quiz `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;foreignKey:StoryID"`
 }

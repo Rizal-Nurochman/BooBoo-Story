@@ -1,15 +1,37 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
-// Kreator merepresentasikan profil tambahan untuk User
 type Creator struct {
 	gorm.Model
-	IgUrl       string
-	TiktokUrl   string
-	Bio 		string
-	Name        string
-	UserID      uint	 `gorm:"unique"`
+	Name         string
+	Bio          string
+	ProfileImage string
+	BannerImage  string
+	Occupation   string
+	Location     string
 
-	User *User `gorm:"foreignKey:UserID"`
+	IgUrl        string
+	TiktokUrl    string
+	WebsiteURL   string
+	YoutubeURL   string
+	LinkedInURL  string
+	Portfolio    string
+
+	Followers    int
+	Following    int
+	StoryCount   int
+	LikesCount   int
+	ViewsCount   int
+	Rating       float64
+
+	IsVerified   bool
+	Status       string // "active", "banned", "pending"
+
+	UserID       uint     `gorm:"unique"`
+	User         *User    `gorm:"foreignKey:UserID"`
+
+	Stories      []Story  `gorm:"foreignKey:CreatorID"`
 }

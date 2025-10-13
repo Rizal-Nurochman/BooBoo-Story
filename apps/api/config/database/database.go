@@ -35,7 +35,7 @@ func ConnectDatabase() {
 
 	err = DB.AutoMigrate(
 		&models.User{}, &models.Creator{}, &models.Achievement{},
-		&models.Answer{}, &models.Category{}, &models.Progress{},
+		&models.Answer{}, &models.Category{}, &models.ProgressRead{},
 		&models.Question{}, &models.Quiz{}, &models.ShopItem{},
 		&models.Story{}, &models.StoryContent{}, &models.StoryContentRareWord{},
 		&models.UserAchievement{}, &models.UserInventory{}, &models.UserQuizResult{},
