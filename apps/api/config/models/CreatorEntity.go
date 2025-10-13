@@ -19,14 +19,6 @@ type Creator struct {
 	YoutubeURL   string
 	LinkedInURL  string
 	Portfolio    string
-
-	Followers    int
-	Following    int
-	StoryCount   int
-	LikesCount   int
-	ViewsCount   int
-	Rating       float64
-
 	IsVerified   bool
 	Status       string // "active", "banned", "pending"
 

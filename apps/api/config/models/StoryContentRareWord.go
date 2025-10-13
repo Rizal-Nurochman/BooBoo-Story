@@ -7,5 +7,5 @@ type StoryContentRareWord struct {
 	gorm.Model
 	Title       string
 	Description string
-	StoryID     string
+	StoryID     uint
 }

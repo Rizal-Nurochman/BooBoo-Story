@@ -39,6 +39,7 @@ func ConnectDatabase() {
 		&models.Question{}, &models.Quiz{}, &models.ShopItem{},
 		&models.Story{}, &models.StoryContent{}, &models.StoryContentRareWord{},
 		&models.UserAchievement{}, &models.UserInventory{}, &models.UserQuizResult{},
+		&models.StoryBookmark{},
 	)
 	if err != nil {
 		log.Fatal("failed to migrate database: " + err.Error())
