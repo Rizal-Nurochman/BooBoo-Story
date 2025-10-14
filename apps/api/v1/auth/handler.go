@@ -64,7 +64,9 @@ func (h *handler) Login(c *gin.Context) {
 		utils.JSON(c, http.StatusUnauthorized, "error", err.Error(), nil, err.Error(), nil)
 		return
 	}
-	c.SetCookie("access_token", token, int((30 * 24 * time.Hour).Seconds()), "/", "", false, true)
+	secure := gin.Mode() == gin.ReleaseMode
+	c.SetCookie("access_token", token, int((30 * 24 * time.Hour).Seconds()), "/", "", secure, true)
+
 	utils.JSON(c, http.StatusOK, "success", "login successful", gin.H{
 		"id":    user.ID,
 		"name":  user.Name,

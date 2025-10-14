@@ -5,6 +5,7 @@ import (
 
 	"github.com/BooBooStory/config"
 	"github.com/BooBooStory/config/database"
+	"github.com/BooBooStory/middleware"
 	"github.com/BooBooStory/utils"
 	"github.com/BooBooStory/v1/auth"
 	"github.com/BooBooStory/v1/categories"
@@ -15,6 +16,7 @@ import (
 func main() {
 		database.ConnectDatabase()
 		utils.InitLogger()
+		middleware.InitMiddleware(database.DB)
 		
 		DB := database.DB
 		

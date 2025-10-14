@@ -16,11 +16,9 @@ type Story struct {
 	AgeLevel     string
 	Difficulty   int
 	PublishedAt  *time.Time
-	UserID       uint
 	CreatorID    uint
 
 	Creator *Creator `gorm:"foreignKey:CreatorID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	User    *User    `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 
 	Categories []*Category `gorm:"many2many:story_categories;"`
 	Contents   []StoryContent `gorm:"foreignKey:StoryID"`

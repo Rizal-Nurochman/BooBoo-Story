@@ -23,7 +23,6 @@ type User struct {
 
 	Creator *Creator `gorm:"foreignKey:UserID"`
 
-	Stories          []Story           `gorm:"foreignKey:UserID"`
 	ProgressReaders []ProgressRead `gorm:"foreignKey:UserID"`
 	UserAchievements []UserAchievement `gorm:"foreignKey:UserID"`
 	UserInventories  []UserInventory   `gorm:"foreignKey:UserID"`
