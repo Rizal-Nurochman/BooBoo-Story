@@ -7,7 +7,7 @@ export const Route = createFileRoute('/auth/_authLayout/forgot-password')({
 
 function RouteComponent() {
   return (
-    <div className="w-full max-w-7xl mx-auto pt-28 relative z-10 flex items-center gap-10">
+    <div className="w-full max-w-7xl px-8 mx-auto pt-28 relative z-10 flex items-center gap-10">
       <div className="flex-1 space-y-3 text-center">
         <div className="flex justify-center">
           <div className="relative inline-flex items-center">
