@@ -8,11 +8,12 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BooksIndexRouteImport } from './routes/books/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
+import { Route as BooksProfileRouteImport } from './routes/books/profile'
+import { Route as BooksCreateRouteImport } from './routes/books/create'
 import { Route as AuthAuthLayoutRouteImport } from './routes/auth/_authLayout'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
@@ -23,21 +24,29 @@ import { Route as AuthAuthLayoutLoginRouteImport } from './routes/auth/_authLayo
 import { Route as AuthAuthLayoutForgotPasswordRouteImport } from './routes/auth/_authLayout/forgot-password'
 import { Route as AuthAuthLayoutCreatorRouteImport } from './routes/auth/_authLayout/creator'
 
-const AuthRouteImport = createFileRoute('/auth')()
-
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BooksIndexRoute = BooksIndexRouteImport.update({
+  id: '/books/',
+  path: '/books/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   id: '/demo/tanstack-query',
   path: '/demo/tanstack-query',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooksProfileRoute = BooksProfileRouteImport.update({
+  id: '/books/profile',
+  path: '/books/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooksCreateRoute = BooksCreateRouteImport.update({
+  id: '/books/create',
+  path: '/books/create',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthAuthLayoutRoute = AuthAuthLayoutRouteImport.update({
@@ -91,7 +100,10 @@ export interface FileRoutesByFullPath {
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
+  '/books/create': typeof BooksCreateRoute
+  '/books/profile': typeof BooksProfileRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/books': typeof BooksIndexRoute
   '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
@@ -104,7 +116,10 @@ export interface FileRoutesByTo {
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
+  '/books/create': typeof BooksCreateRoute
+  '/books/profile': typeof BooksProfileRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/books': typeof BooksIndexRoute
   '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
@@ -117,9 +132,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
-  '/auth': typeof AuthRouteWithChildren
   '/auth/_authLayout': typeof AuthAuthLayoutRouteWithChildren
+  '/books/create': typeof BooksCreateRoute
+  '/books/profile': typeof BooksProfileRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/books/': typeof BooksIndexRoute
   '/auth/_authLayout/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/_authLayout/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/_authLayout/login': typeof AuthAuthLayoutLoginRoute
@@ -134,7 +151,10 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/demo-names'
     | '/auth'
+    | '/books/create'
+    | '/books/profile'
     | '/demo/tanstack-query'
+    | '/books'
     | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -147,7 +167,10 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/demo-names'
     | '/auth'
+    | '/books/create'
+    | '/books/profile'
     | '/demo/tanstack-query'
+    | '/books'
     | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -159,9 +182,11 @@ export interface FileRouteTypes {
     | '/'
     | '/api/ai'
     | '/api/demo-names'
-    | '/auth'
     | '/auth/_authLayout'
+    | '/books/create'
+    | '/books/profile'
     | '/demo/tanstack-query'
+    | '/books/'
     | '/auth/_authLayout/creator'
     | '/auth/_authLayout/forgot-password'
     | '/auth/_authLayout/login'
@@ -174,26 +199,28 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
-  AuthRoute: typeof AuthRouteWithChildren
+  BooksCreateRoute: typeof BooksCreateRoute
+  BooksProfileRoute: typeof BooksProfileRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  BooksIndexRoute: typeof BooksIndexRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/books/': {
+      id: '/books/'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof BooksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/tanstack-query': {
@@ -203,9 +230,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/books/profile': {
+      id: '/books/profile'
+      path: '/books/profile'
+      fullPath: '/books/profile'
+      preLoaderRoute: typeof BooksProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/books/create': {
+      id: '/books/create'
+      path: '/books/create'
+      fullPath: '/books/create'
+      preLoaderRoute: typeof BooksCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/_authLayout': {
       id: '/auth/_authLayout'
-      path: '/auth'
+      path: ''
       fullPath: '/auth'
       preLoaderRoute: typeof AuthAuthLayoutRouteImport
       parentRoute: typeof AuthRoute
@@ -269,40 +310,14 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthAuthLayoutRouteChildren {
-  AuthAuthLayoutCreatorRoute: typeof AuthAuthLayoutCreatorRoute
-  AuthAuthLayoutForgotPasswordRoute: typeof AuthAuthLayoutForgotPasswordRoute
-  AuthAuthLayoutLoginRoute: typeof AuthAuthLayoutLoginRoute
-  AuthAuthLayoutRegisterRoute: typeof AuthAuthLayoutRegisterRoute
-}
-
-const AuthAuthLayoutRouteChildren: AuthAuthLayoutRouteChildren = {
-  AuthAuthLayoutCreatorRoute: AuthAuthLayoutCreatorRoute,
-  AuthAuthLayoutForgotPasswordRoute: AuthAuthLayoutForgotPasswordRoute,
-  AuthAuthLayoutLoginRoute: AuthAuthLayoutLoginRoute,
-  AuthAuthLayoutRegisterRoute: AuthAuthLayoutRegisterRoute,
-}
-
-const AuthAuthLayoutRouteWithChildren = AuthAuthLayoutRoute._addFileChildren(
-  AuthAuthLayoutRouteChildren,
-)
-
-interface AuthRouteChildren {
-  AuthAuthLayoutRoute: typeof AuthAuthLayoutRouteWithChildren
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthAuthLayoutRoute: AuthAuthLayoutRouteWithChildren,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiAiRoute: ApiAiRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
-  AuthRoute: AuthRouteWithChildren,
+  BooksCreateRoute: BooksCreateRoute,
+  BooksProfileRoute: BooksProfileRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  BooksIndexRoute: BooksIndexRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
 }
