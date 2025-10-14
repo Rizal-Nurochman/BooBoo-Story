@@ -6,16 +6,16 @@ const Header = () => {
 
   const { pathname }=useLocation()
 
-  if(pathname.startsWith('/auth')) return null
+  if (pathname.startsWith('/auth') || pathname.startsWith('/books')) return null
 
   return (
     <motion.header 
       variants={slideDown}
       initial="hidden"
       animate="visible"
-      className="w-full absolute top-0 left-0 py-1 md:py-2"
+      className="w-full absolute top-0 left-0 py-0.5 md:py-1.5"
     >
-      <nav className="w-full max-w-[90%] md:max-w-[85%] lg:max-w-[80%] px-4 md:px-6 lg:px-8 mx-auto flex justify-between items-center">
+      <nav className="w-full max-w-[90%] md:max-w-[90%] xl:max-w-[80%] px-4 md:px-6 lg:px-8 mx-auto flex justify-between items-center">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -29,7 +29,7 @@ const Header = () => {
             <img
               src="images/core/logo.png"
               alt="image-logo"
-              className="h-20 md:h-24 lg:h-28 xl:h-32 w-auto block"
+              className="h-16 md:h-20 lg:h-24 xl:h-28 w-auto block"
             />
           </Link>
         </motion.div>
@@ -43,7 +43,7 @@ const Header = () => {
           <motion.button whileTap={buttonTap}>
             <Link
               to="/auth/login"
-              className="px-4 py-1.5 md:px-6 md:py-2 lg:px-8 lg:py-2 shadow-lg shadow-accent-foreground/50 rounded-md text-sm md:text-base lg:text-lg xl:text-xl font-semibold cursor-pointer bg-primary text-white hover:bg-primary/90 transition-all duration-100 flex items-center justify-center"
+              className="px-4 py-1.5 md:px-6 md:py-2 lg:px-8 lg:py-1.5 shadow-lg shadow-accent-foreground/50 rounded-md text-xs md:text-sm lg:text-md xl:text-lg font-semibold cursor-pointer bg-primary text-white hover:bg-primary/90 transition-all duration-100 flex items-center justify-center"
             >
               Login
             </Link>

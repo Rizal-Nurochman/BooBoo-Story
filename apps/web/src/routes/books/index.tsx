@@ -19,7 +19,6 @@ function RouteComponent() {
   const navigate = useNavigate();
   const [filteredBooks, setFilteredBooks] = useState(allBooks);
 
-  // 🔍 fungsi filter otomatis berdasarkan judul
   const handleSearch = (query: string) => {
     if (query.trim() === "") {
       setFilteredBooks(allBooks);
@@ -33,15 +32,12 @@ function RouteComponent() {
 
   return (
     <div className="pt-28 px-6 sm:px-12 bg-[#F6E9C8] min-h-screen">
-      {/* ================= HEADER ================= */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
-        {/* 👈 Kiri: Jelajahi + Find */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 w-full sm:w-auto">
           <Category />
           <Find onSearch={handleSearch} />
         </div>
 
-        {/* 👉 Kanan: Tombol Aksi */}
         <div className="flex flex-row items-center justify-start sm:justify-end gap-3 w-full sm:w-auto">
           <button
             onClick={() => navigate({ to: "/books/create" })}

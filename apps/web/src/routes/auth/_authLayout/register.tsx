@@ -7,14 +7,11 @@ export const Route = createFileRoute('/auth/_authLayout/register')({
 
 function RouteComponent() {
   return (
-    <div className="w-full max-w-7xl flex items-center mx-auto pt-28 relative z-10 gap-10">
-      <div className="flex-1 flex justify-center items-center">
-        <img src="/images/auth/auth-child.png" alt="auth-child" />
-      </div>
-      <div className="flex-1 space-y-3 text-center">
-        <div className="flex justify-center">
+    <div className="w-full max-w-6xl flex items-center min-h-screen justify-center mx-auto pt-8 relative z-10 gap-10 px-4">
+      <div className="flex-1 space-y-3 text-center w-full max-w-lg mx-auto pb-6 h-full">
+        <div className="flex justify-center items-center">
           <div className="relative inline-flex items-center">
-            <h1 className="text-2xl md:text-3xl font-bold text-primary">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-primary">
               Mulai Petualanganmu Bersama Bobo!
             </h1>
             <img
@@ -25,7 +22,7 @@ function RouteComponent() {
           </div>
         </div>
 
-        <p className="text-muted-foreground text-base font-medium">
+        <p className="text-muted-foreground text-xs sm:text-sm text-center opacity-80 font-medium leading-relaxed max-w-[95%] mx-auto lg:mx-0">
           Yuk, jadi bagian dari dunia penuh cerita dan warna!  
           Dengan bergabung bersama Bobo, kamu bisa membaca kisah seru,  
           belajar hal-hal baru, dan menjelajahi dunia imajinasi yang tak terbatas!

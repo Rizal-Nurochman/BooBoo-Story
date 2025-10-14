@@ -70,8 +70,6 @@ const ForgotPasswordForm = () => {
 
   return (
     <div className="w-full cursor-pointer space-y-6">
-      <h2 className="text-2xl font-semibold text-center mb-4">Lupa Password</h2>
-
       {step === 1 && (
         <Form {...emailForm}>
           <form onSubmit={emailForm.handleSubmit(handleEmailSubmit)} className="space-y-6">
@@ -80,7 +78,7 @@ const ForgotPasswordForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-lg font-medium">Alamat Email</FormLabel>
+                  <FormLabel className="text-lg font-semibold">Alamat Email</FormLabel>
                   <FormControl>
                     <Input type="email" placeholder="Masukkan email terdaftar kamu" {...field} />
                   </FormControl>

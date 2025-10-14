@@ -9,43 +9,39 @@ import { Eye, EyeOff } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import GoogleIcon from "../ui/GoogleIcon"
 
-
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   })
 
   const fields = [
     {
       name: "email",
       label: "Alamat Email",
-      placeholder: "Masukkan email ajaibmu",
+      placeholder: "Masukkan email kamu",
       type: "email",
       showToggle: false,
     },
     {
       name: "password",
-      label: "Kata Sandi Rahasia",
-      placeholder: "Tulis password rahasiamu",
+      label: "Kata Sandi",
+      placeholder: "Masukkan password kamu",
       type: showPassword ? "text" : "password",
       showToggle: true,
     },
   ] as const
 
   function onSubmit(data: LoginSchemaType) {
-    console.log("Selamat datang, penjelajah dunia digital! 🌈", data)
+    console.log("Login:", data)
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 w-full">
           {fields.map((field) => (
             <FormField
               key={field.name}
@@ -53,44 +49,49 @@ const LoginForm = () => {
               name={field.name}
               render={({ field: f }) => (
                 <FormItem className="text-start">
-                  {field.type==='password'? (
+                  {field.type === "password" ? (
                     <div className="flex justify-between items-center">
-                        <FormLabel className="text-xl font-semibold">{field.label}</FormLabel>
-                        <Link to="/auth/forgot-password" className="text-sm text-blue-600 hover:underline">
-                            Lupa kata sandi?
-                        </Link>
+                      <FormLabel className="text-sm font-semibold">{field.label}</FormLabel>
+                      <Link
+                        to="/auth/forgot-password"
+                        className="text-xs text-blue-600 hover:underline"
+                      >
+                        Lupa sandi?
+                      </Link>
                     </div>
-                  ):
-                    <FormLabel className="text-xl font-semibold">{field.label}</FormLabel>
-                  }
+                  ) : (
+                    <FormLabel className="text-sm font-semibold">{field.label}</FormLabel>
+                  )}
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={field.type}
                         placeholder={field.placeholder}
-                        className="py-2.5"
+                        className="py-2 text-sm"
                         {...f}
                       />
                       {field?.showToggle && (
                         <button
                           type="button"
                           onClick={() => setShowPassword((prev) => !prev)}
-                          className="absolute right-3 top-2.5 text-muted-foreground"
+                          className="absolute right-3 top-2 text-muted-foreground"
                         >
-                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
                       )}
                     </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs" />
                 </FormItem>
               )}
             />
           ))}
 
-          <Button type="submit" className="w-full cursor-pointer">Masuk</Button>
+          <Button type="submit" className="w-full py-2 text-sm font-medium cursor-pointer">
+            Masuk
+          </Button>
 
-          <div className="flex w-full items-center justify-center gap-2 text-sm text-muted-foreground">
+          <div className="flex w-full items-center justify-center gap-2 text-xs text-muted-foreground">
             <div className="h-px bg-border flex-1 rounded-full" />
             <span>Atau</span>
             <div className="h-px bg-border flex-1 rounded-full" />
@@ -99,13 +100,13 @@ const LoginForm = () => {
           <Button
             type="button"
             variant="outline"
-            className="w-full flex cursor-pointer items-center justify-center gap-2"
+            className="w-full flex items-center justify-center gap-2 py-2 text-sm cursor-pointer"
           >
-            <GoogleIcon className="h-4 w-4" />
+            <GoogleIcon className="h-3.5 w-3.5" />
             Masuk dengan Google
           </Button>
 
-          <div className="text-center text-sm text-muted-foreground">
+          <div className="text-center text-xs text-muted-foreground">
             Belum punya akun?{" "}
             <Link to="/auth/register" className="text-blue-600 font-medium hover:underline">
               Daftar Sekarang

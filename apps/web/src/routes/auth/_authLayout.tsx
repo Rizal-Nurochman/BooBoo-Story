@@ -1,9 +1,22 @@
-import HeaderAuth from '@/components/layout/HeaderAuth'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/auth/_authLayout')({
   component: AuthLayout,
 })
+
+
+const borders=[
+    {
+        id:1,
+        img:'/images/core/border.png',
+        style:'w-[30%] md:w-[20%] absolute top-0 right-0 z-20'
+    },
+    {
+        id:1,
+        img:'/images/core/border.png',
+        style:'w-[30%] md:w-[20%] rotate-[180deg] absolute bottom-0 left-0 z-20'
+    },
+]
 
 function AuthLayout() {
     const leaves = Array.from({ length: 6 }).map((_) => ({
@@ -17,7 +30,6 @@ function AuthLayout() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#fef7e6]">
-      <HeaderAuth />
       <Outlet />
       {leaves.map((leaf, i) => (
         <img
@@ -35,6 +47,10 @@ function AuthLayout() {
             opacity: 0.9,
           }}
         />
+      ))}
+
+      {borders.map((img)=>(
+          <img src={img.img} className={img.style} key={img.id}  />
       ))}
     </div>
   )

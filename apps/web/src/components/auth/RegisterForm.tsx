@@ -26,21 +26,21 @@ const RegisterForm = () => {
   const fields = [
     {
       name: "username",
-      label: "Username Account",
-      placeholder: "Masukkan username keren kamu",
+      label: "Username",
+      placeholder: "Masukkan username kamu",
       type: "text",
       showToggle: false,
     },
     {
       name: "email",
-      label: "Alamat Email",
+      label: "Email",
       placeholder: "Masukkan email ajaibmu",
       type: "email",
       showToggle: false,
     },
     {
       name: "password",
-      label: "Kata Sandi Rahasia",
+      label: "Kata Sandi",
       placeholder: "Tulis password rahasiamu",
       type: showPassword ? "text" : "password",
       showToggle: true,
@@ -49,7 +49,7 @@ const RegisterForm = () => {
     },
     {
       name: "confirmPassword",
-      label: "Konfirmasi Kata Sandi Rahasia",
+      label: "Konfirmasi Sandi",
       placeholder: "Ulangi password rahasiamu",
       type: showConfirmPassword ? "text" : "password",
       showToggle: true,
@@ -63,23 +63,23 @@ const RegisterForm = () => {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 w-full">
           {fields.map((field) => (
             <FormField
               key={field.name}
               control={form.control}
               name={field.name}
               render={({ field: f }) => (
-                <FormItem>
-                  <FormLabel className="text-xl font-semibold">{field.label}</FormLabel>
+                <FormItem className="text-start">
+                  <FormLabel className="text-sm sm:text-base font-semibold">{field.label}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={field.type}
                         placeholder={field.placeholder}
-                        className="py-2.5"
+                        className="py-2 text-sm"
                         {...f}
                       />
                       {field.showToggle && (
@@ -88,22 +88,22 @@ const RegisterForm = () => {
                           onClick={field.toggleFn}
                           className="absolute right-3 top-2.5 text-muted-foreground"
                         >
-                          {field.isShown ? <EyeOff size={18} /> : <Eye size={18} />}
+                          {field.isShown ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
                       )}
                     </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs" />
                 </FormItem>
               )}
             />
           ))}
 
-          <Button type="submit" className="w-full cursor-pointer">
+          <Button type="submit" className="w-full text-sm py-2 cursor-pointer">
             Daftar
           </Button>
 
-          <div className="flex w-full items-center justify-center gap-2 text-sm text-muted-foreground">
+          <div className="flex w-full items-center justify-center gap-2 text-xs text-muted-foreground">
             <div className="h-px bg-border flex-1 rounded-full" />
             <span>Atau</span>
             <div className="h-px bg-border flex-1 rounded-full" />
@@ -112,13 +112,13 @@ const RegisterForm = () => {
           <Button
             type="button"
             variant="outline"
-            className="w-full flex cursor-pointer items-center justify-center gap-2"
+            className="w-full flex items-center justify-center gap-2 text-sm py-2 cursor-pointer"
           >
             <GoogleIcon className="h-4 w-4" />
             Bergabung dengan Google
           </Button>
 
-          <div className="text-center text-sm text-muted-foreground">
+          <div className="text-center text-xs sm:text-sm text-muted-foreground">
             Sudah punya akun?{" "}
             <Link to="/auth/login" className="text-blue-600 font-medium hover:underline">
               Masuk Sekarang

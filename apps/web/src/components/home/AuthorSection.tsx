@@ -51,7 +51,7 @@ const playfulCardEnter = (index: number): Variants => ({
 
 const playfulHover = {
   scale: 1.05,
-  y: -8,
+  y: -6,
   rotate: 0.5,
   transition: { 
     duration: 0.3, 
@@ -61,15 +61,14 @@ const playfulHover = {
 
 const AuthorSection = () => {
   return (
-    <div className="bg-[#E08F62] pt-20 sm:pt-24 md:pt-32 pb-6 sm:pb-8 md:pb-12 lg:pb-16 overflow-hidden">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Decorative images with floating animation */}
+    <div className="bg-[#E08F62] pt-12 sm:pt-16 md:pt-20 pb-4 sm:pb-6 md:pb-8 lg:pb-10 overflow-hidden">
+      <div className="w-full max-w-5xl mx-auto px-3 sm:px-4 lg:px-6 relative">
         <motion.img 
           src="/images/home/ic-1.png" 
           alt="images-ic-1" 
-          className="absolute -top-7 left-4 sm:left-8 size-16 sm:size-20 md:size-28"
+          className="absolute -top-5 left-3 sm:left-6 size-10 sm:size-14 md:size-20"
           animate={{
-            y: [0, -8, 0],
+            y: [0, -6, 0],
           }}
           transition={{
             duration: 2,
@@ -80,9 +79,9 @@ const AuthorSection = () => {
         <motion.img 
           src="/images/home/ic-2.png" 
           alt="images-ic-2" 
-          className="absolute bottom-1/2 -right-6 sm:-right-10 h-10 sm:h-12 md:h-16 rotate-12"
+          className="absolute bottom-1/2 -right-4 sm:-right-6 h-8 sm:h-10 md:h-12 rotate-12"
           animate={{
-            y: [0, -8, 0],
+            y: [0, -6, 0],
           }}
           transition={{
             duration: 2,
@@ -92,19 +91,19 @@ const AuthorSection = () => {
         />
         
         <motion.h3 
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-Inter font-semibold text-white text-center leading-snug tracking-wide mb-12 sm:mb-14 md:mb-16 px-4"
+          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-Inter font-semibold text-white text-center leading-snug tracking-wide mb-8 sm:mb-10 md:mb-12 px-2"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
           Kami ingin mengajak anak-anak
-          <span className="text-yellow-400 italic block mt-2">menjelajahi dunia imajinasi melalui cerita-cerita seru</span>
+          <span className="text-yellow-400 italic block mt-1 text-base sm:text-lg">menjelajahi dunia imajinasi melalui cerita-cerita seru</span>
           dan menemukan keseruan belajar dari setiap kisah yang menginspirasi.
         </motion.h3>
 
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 justify-center"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 justify-center"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -113,21 +112,21 @@ const AuthorSection = () => {
           {arrAuthor.map((author, index) => (
             <motion.div
               key={author.id}
-              className="flex flex-col items-center text-center p-4 sm:p-6 rounded-2xl"
+              className="flex flex-col items-center text-center p-3 sm:p-4 rounded-xl"
               variants={playfulCardEnter(index)}
               whileHover={playfulHover}
             >
               <motion.img
                 src={author.image}
                 alt={author.name}
-                className="h-auto w-48 sm:w-56 md:w-64 object-cover rounded-full shadow-lg"
+                className="h-auto w-32 sm:w-40 md:w-48 object-cover rounded-full shadow-lg"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ duration: 0.3 }}
               />
-              <h4 className="mt-4 text-xl sm:text-2xl font-semibold text-white">
+              <h4 className="mt-3 text-lg sm:text-xl font-semibold text-white">
                 {author.name}
               </h4>
-              <p className="text-sm text-gray-100">{author.role}</p>
+              <p className="text-xs text-gray-100">{author.role}</p>
             </motion.div>
           ))}
         </motion.div>

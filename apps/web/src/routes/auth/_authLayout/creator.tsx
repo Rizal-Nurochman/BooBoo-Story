@@ -21,10 +21,7 @@ const borders=[
 function RouteComponent() {
   return(
     <div className='w-full h-screen relative'>
-      {borders.map((img)=>(
-          <img src={img.img} className={img.style} key={img.id}  />
-      ))}
-      <div className='w-full max-w-7xl mx-auto flex items-center pt-28 relative z-10'>
+      <div className='w-full max-w-6xl mx-auto flex items-center pt-28 relative z-10'>
         <div className=''>
           {/* image */}
         </div>

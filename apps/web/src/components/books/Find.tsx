@@ -1,5 +1,5 @@
+import { Search } from "lucide-react";
 import React, { useState } from "react";
-import { FiSearch } from "react-icons/fi";
 
 interface FindProps {
   onSearch: (query: string) => void;
@@ -19,7 +19,7 @@ const Find: React.FC<FindProps> = ({ onSearch }) => {
       className="flex items-center bg-[#F6E9C8] border border-[#8C6A4E] rounded-full px-4 py-2 shadow-sm 
                  focus-within:ring-2 focus-within:ring-[#E49A6B] transition-all w-full max-w-sm"
     >
-      <FiSearch className="text-[#8C6A4E] text-lg mr-2" />
+      <Search className="text-[#8C6A4E] text-lg mr-2" />
       <input
         type="text"
         value={query}
