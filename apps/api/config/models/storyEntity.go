@@ -12,10 +12,10 @@ type Story struct {
 	Description  string
 	CoverImage   string
 	Status       string     `gorm:"default:'draft'"` 
-	Approved     bool
+	Approved     bool        `gorm:"default:false"`
 	AgeLevel     string
 	Difficulty   int
-	PublishedAt  *time.Time
+	PublishedAt *time.Time `gorm:"default:CURRENT_TIMESTAMP"`
 	CreatorID    uint
 
 	Creator *Creator `gorm:"foreignKey:CreatorID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`

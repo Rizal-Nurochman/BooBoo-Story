@@ -1,9 +1,5 @@
 package models
 
-import (
-	"time"
-)
-
 type StoryContent struct {
 	ID        uint `gorm:"primaryKey"`
 	StoryID   uint
@@ -11,6 +7,5 @@ type StoryContent struct {
 	Text      string
 	ImageUrl  string
 	AudioUrl  string
-	CreatedAt time.Time
 }
 
