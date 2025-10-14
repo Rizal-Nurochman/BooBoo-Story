@@ -11,7 +11,6 @@ import (
 )
 
 type Service interface {
-	SendVerificationEmail(toEmail, otp string) error
 	SendPasswordResetEmail(toEmail, token string) error
 }
 
@@ -65,11 +64,7 @@ func (s *service) SendPasswordResetEmail(toEmail, token string) error {
 	return nil
 }
 
-func (s *service) SendVerificationEmail(toEmail, otp string) error {
 
-	fmt.Printf("Mengirim email verifikasi ke %s dengan OTP: %s\n", toEmail, otp)
-	return nil
-}
 
 func parseEmailTemplate(templateFileName string, data interface{}) (string, error) {
 	templatePath, err := filepath.Abs(fmt.Sprintf("v1/email/templates/%s", templateFileName))

@@ -15,6 +15,7 @@ type User struct {
 	Points    int
 	Streak    int
 	Level     int
+	
 
 	ResetPasswordToken          string    `gorm:"index"`
 	ResetPasswordTokenExpiresAt time.Time

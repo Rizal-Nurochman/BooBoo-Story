@@ -1,8 +1,9 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
-// StoryContent merepresentasikan tabel 'story_contents'
 type StoryContent struct {
 	ID        uint `gorm:"primaryKey"`
 	StoryID   uint
@@ -12,3 +13,4 @@ type StoryContent struct {
 	AudioUrl  string
 	CreatedAt time.Time
 }
+

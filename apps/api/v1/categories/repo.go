@@ -55,7 +55,7 @@ func (r *repository) Delete(id uint) error {
 	return r.db.Delete(&models.Category{}, id).Error
 }
 
-// 🔹 FindAll dengan pagination dan search query
+   
 func (r *repository) FindAll(withChildren bool, page, limit int, q string) ([]models.Category, int64, error) {
 	var (
 		categories []models.Category

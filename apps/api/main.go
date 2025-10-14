@@ -7,6 +7,7 @@ import (
 	"github.com/BooBooStory/config/database"
 	"github.com/BooBooStory/utils"
 	"github.com/BooBooStory/v1/auth"
+	"github.com/BooBooStory/v1/categories"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,7 +25,9 @@ func main() {
 
 		api := router.Group("/api/v1")
 
+		// all router
 		auth.AuthRouter(api, DB)
+		categories.CategoryRouter(api, DB)
 
 		port := os.Getenv("PORT")
 		router.Run(":" + port)
