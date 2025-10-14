@@ -9,42 +9,47 @@ type Repository interface {
 	Create(rareWord models.StoryContentRareWord) (*models.StoryContentRareWord, error)
 	Update(id uint, rareWord models.StoryContentRareWord) (*models.StoryContentRareWord, error)
 	Delete(id uint) error
-	FindAll(story_id uint) ([]models.StoryContentRareWord, error)
+	FindAll(storyContentID uint) ([]models.StoryContentRareWord, error)
+	FindByID(id uint) (*models.StoryContentRareWord, error)
 }
 
 type repository struct {
 	DB *gorm.DB
 }
 
-
 func (r *repository) Create(rareWord models.StoryContentRareWord) (*models.StoryContentRareWord, error) {
-	if err := r.DB.Create(rareWord).Error; err !=nil{
+	if err := r.DB.Create(&rareWord).Error; err != nil {
 		return nil, err
-	}	
-
-	return  &rareWord, nil
-}
-
-// Delete implements Repository.
-func (r *repository) Delete(id uint) error {
-	return  r.DB.Delete(id).Error
-}
-
-// FindAll implements Repository.
-func (r *repository) FindAll(story_id uint) ([]models.StoryContentRareWord, error) {
-   var StoryContentRareWord []models.StoryContentRareWord
-
-   if err := r.DB.Where("story_id = ?", story_id).Find(&StoryContentRareWord).Error; err != nil {
-	   return []models.StoryContentRareWord{}, err
 	}
-   return StoryContentRareWord, nil
+	return &rareWord, nil
 }
 
-
-
-// Update implements Repository.
 func (r *repository) Update(id uint, rareWord models.StoryContentRareWord) (*models.StoryContentRareWord, error) {
-	if err := r.DB.Save(rareWord).Error; err != nil{
+	var existing models.StoryContentRareWord
+	if err := r.DB.First(&existing, id).Error; err != nil {
+		return nil, err
+	}
+	if err := r.DB.Model(&existing).Updates(rareWord).Error; err != nil {
+		return nil, err
+	}
+	return &existing, nil
+}
+
+func (r *repository) Delete(id uint) error {
+	return r.DB.Delete(&models.StoryContentRareWord{}, id).Error
+}
+
+func (r *repository) FindAll(storyContentID uint) ([]models.StoryContentRareWord, error) {
+	var rareWords []models.StoryContentRareWord
+	if err := r.DB.Where("story_content_id = ?", storyContentID).Find(&rareWords).Error; err != nil {
+		return nil, err
+	}
+	return rareWords, nil
+}
+
+func (r *repository) FindByID(id uint) (*models.StoryContentRareWord, error) {
+	var rareWord models.StoryContentRareWord
+	if err := r.DB.First(&rareWord, id).Error; err != nil {
 		return nil, err
 	}
 	return &rareWord, nil

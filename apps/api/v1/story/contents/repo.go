@@ -10,6 +10,7 @@ type Repository interface {
 	Update(id uint, content models.StoryContent) (*models.StoryContent, error)
 	Delete(id uint) error
 	FindAll(story_id uint) ([]models.StoryContent, error)
+	FindByID(id uint) (*models.StoryContent, error)
 }
 
 type repository struct {
@@ -36,7 +37,20 @@ func (r *repository) FindAll(story_id uint) ([]models.StoryContent, error) {
 	if err := r.DB.Where("story_id = ?", story_id).Find(&StoryContent).Error; err != nil {
 		return []models.StoryContent{}, err
 	}
+
 	return StoryContent, nil
+}
+
+// FindByID implements Repository.
+func (r *repository) FindByID(id uint) (*models.StoryContent, error){
+	var content models.StoryContent
+	if err := r.DB.First(&content, id).Error; err != nil{
+		if err == gorm.ErrRecordNotFound{
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &content, nil
 }
 
 // Update implements Repository.

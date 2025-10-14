@@ -75,7 +75,7 @@ func (h *handler) CreateSubCategory(c *gin.Context) {
 		return
 	}
 
-	utils.JSON(c, http.StatusCreated, "success", "Subcategory created successfully", category, err.Error(), nil)
+	utils.JSON(c, http.StatusCreated, "success", "Subcategory created successfully", category, nil, nil)
 }
 
 // Delete implements Handler.
@@ -94,7 +94,7 @@ func (h *handler) Delete(c *gin.Context) {
 		return
 	}
 
-	utils.JSON(c, http.StatusOK, "success","Category deleted successfully", nil, err.Error(), nil)
+	utils.JSON(c, http.StatusOK, "success","Category deleted successfully", nil, nil, nil)
 }
 
 // GetAll implements Handler.

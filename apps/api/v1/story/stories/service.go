@@ -2,7 +2,6 @@ package stories
 
 import (
 	"errors"
-
 	"github.com/BooBooStory/config/models"
 	"github.com/BooBooStory/config/validations"
 	"github.com/BooBooStory/utils"

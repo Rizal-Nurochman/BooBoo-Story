@@ -22,7 +22,6 @@ type Story struct {
 
 	Categories []*Category `gorm:"many2many:story_categories;"`
 	Contents   []StoryContent `gorm:"foreignKey:StoryID"`
-	RareWords  []StoryContentRareWord `gorm:"foreignKey:StoryID"`
 	ProgressReaders []ProgressRead `gorm:"foreignKey:StoryID"`
 	Quiz *Quiz `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;foreignKey:StoryID"`
 
