@@ -12,31 +12,61 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UserProfileRouteImport } from './routes/user/profile'
+import { Route as UserMyStoriesRouteImport } from './routes/user/my-stories'
+import { Route as UserBookmarksRouteImport } from './routes/user/bookmarks'
+import { Route as UserAchievementsRouteImport } from './routes/user/achievements'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as CreatorsDashboardRouteImport } from './routes/creators/dashboard'
 import { Route as AuthAuthLayoutRouteImport } from './routes/auth/_authLayout'
+import { Route as AppAppLayoutRouteImport } from './routes/app/_appLayout'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
-import { Route as AppBooksIndexRouteImport } from './routes/app/books/index'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 import { Route as AuthAuthLayoutRegisterRouteImport } from './routes/auth/_authLayout/register'
 import { Route as AuthAuthLayoutLoginRouteImport } from './routes/auth/_authLayout/login'
 import { Route as AuthAuthLayoutForgotPasswordRouteImport } from './routes/auth/_authLayout/forgot-password'
 import { Route as AuthAuthLayoutCreatorRouteImport } from './routes/auth/_authLayout/creator'
-import { Route as AppBooksProfileRouteImport } from './routes/app/books/profile'
-import { Route as AppBooksCreateRouteImport } from './routes/app/books/create'
+import { Route as AppAppLayoutBooksIndexRouteImport } from './routes/app/_appLayout/books/index'
+import { Route as AppAppLayoutBooksCreateRouteImport } from './routes/app/_appLayout/books/create'
 
 const AuthRouteImport = createFileRoute('/auth')()
+const AppRouteImport = createFileRoute('/app')()
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserProfileRoute = UserProfileRouteImport.update({
+  id: '/user/profile',
+  path: '/user/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserMyStoriesRoute = UserMyStoriesRouteImport.update({
+  id: '/user/my-stories',
+  path: '/user/my-stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserBookmarksRoute = UserBookmarksRouteImport.update({
+  id: '/user/bookmarks',
+  path: '/user/bookmarks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserAchievementsRoute = UserAchievementsRouteImport.update({
+  id: '/user/achievements',
+  path: '/user/achievements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
@@ -53,6 +83,10 @@ const AuthAuthLayoutRoute = AuthAuthLayoutRouteImport.update({
   id: '/_authLayout',
   getParentRoute: () => AuthRoute,
 } as any)
+const AppAppLayoutRoute = AppAppLayoutRouteImport.update({
+  id: '/_appLayout',
+  getParentRoute: () => AppRoute,
+} as any)
 const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
   id: '/api/demo-names',
   path: '/api/demo-names',
@@ -61,11 +95,6 @@ const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
 const ApiAiRoute = ApiAiRouteImport.update({
   id: '/api/ai',
   path: '/api/ai',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppBooksIndexRoute = AppBooksIndexRouteImport.update({
-  id: '/app/books/',
-  path: '/app/books/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
@@ -99,69 +128,82 @@ const AuthAuthLayoutCreatorRoute = AuthAuthLayoutCreatorRouteImport.update({
   path: '/creator',
   getParentRoute: () => AuthAuthLayoutRoute,
 } as any)
-const AppBooksProfileRoute = AppBooksProfileRouteImport.update({
-  id: '/app/books/profile',
-  path: '/app/books/profile',
-  getParentRoute: () => rootRouteImport,
+const AppAppLayoutBooksIndexRoute = AppAppLayoutBooksIndexRouteImport.update({
+  id: '/books/',
+  path: '/books/',
+  getParentRoute: () => AppAppLayoutRoute,
 } as any)
-const AppBooksCreateRoute = AppBooksCreateRouteImport.update({
-  id: '/app/books/create',
-  path: '/app/books/create',
-  getParentRoute: () => rootRouteImport,
+const AppAppLayoutBooksCreateRoute = AppAppLayoutBooksCreateRouteImport.update({
+  id: '/books/create',
+  path: '/books/create',
+  getParentRoute: () => AppAppLayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/app': typeof AppAppLayoutRouteWithChildren
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/creators/dashboard': typeof CreatorsDashboardRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/app/books/create': typeof AppBooksCreateRoute
-  '/app/books/profile': typeof AppBooksProfileRoute
+  '/user/achievements': typeof UserAchievementsRoute
+  '/user/bookmarks': typeof UserBookmarksRoute
+  '/user/my-stories': typeof UserMyStoriesRoute
+  '/user/profile': typeof UserProfileRoute
   '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/app/books': typeof AppBooksIndexRoute
+  '/app/books/create': typeof AppAppLayoutBooksCreateRoute
+  '/app/books': typeof AppAppLayoutBooksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/app': typeof AppAppLayoutRouteWithChildren
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/creators/dashboard': typeof CreatorsDashboardRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/app/books/create': typeof AppBooksCreateRoute
-  '/app/books/profile': typeof AppBooksProfileRoute
+  '/user/achievements': typeof UserAchievementsRoute
+  '/user/bookmarks': typeof UserBookmarksRoute
+  '/user/my-stories': typeof UserMyStoriesRoute
+  '/user/profile': typeof UserProfileRoute
   '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/app/books': typeof AppBooksIndexRoute
+  '/app/books/create': typeof AppAppLayoutBooksCreateRoute
+  '/app/books': typeof AppAppLayoutBooksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/_appLayout': typeof AppAppLayoutRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/auth/_authLayout': typeof AuthAuthLayoutRouteWithChildren
   '/creators/dashboard': typeof CreatorsDashboardRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/app/books/create': typeof AppBooksCreateRoute
-  '/app/books/profile': typeof AppBooksProfileRoute
+  '/user/achievements': typeof UserAchievementsRoute
+  '/user/bookmarks': typeof UserBookmarksRoute
+  '/user/my-stories': typeof UserMyStoriesRoute
+  '/user/profile': typeof UserProfileRoute
   '/auth/_authLayout/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/_authLayout/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/_authLayout/login': typeof AuthAuthLayoutLoginRoute
   '/auth/_authLayout/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/app/books/': typeof AppBooksIndexRoute
+  '/app/_appLayout/books/create': typeof AppAppLayoutBooksCreateRoute
+  '/app/_appLayout/books/': typeof AppAppLayoutBooksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -169,67 +211,82 @@ export interface FileRouteTypes {
     | '/'
     | '/api/ai'
     | '/api/demo-names'
+    | '/app'
     | '/auth'
     | '/creators/dashboard'
     | '/demo/tanstack-query'
-    | '/app/books/create'
-    | '/app/books/profile'
+    | '/user/achievements'
+    | '/user/bookmarks'
+    | '/user/my-stories'
+    | '/user/profile'
     | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
     | '/auth/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/app/books/create'
     | '/app/books'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/api/ai'
     | '/api/demo-names'
+    | '/app'
     | '/auth'
     | '/creators/dashboard'
     | '/demo/tanstack-query'
-    | '/app/books/create'
-    | '/app/books/profile'
+    | '/user/achievements'
+    | '/user/bookmarks'
+    | '/user/my-stories'
+    | '/user/profile'
     | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
     | '/auth/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/app/books/create'
     | '/app/books'
   id:
     | '__root__'
     | '/'
     | '/api/ai'
     | '/api/demo-names'
+    | '/app'
+    | '/app/_appLayout'
     | '/auth'
     | '/auth/_authLayout'
     | '/creators/dashboard'
     | '/demo/tanstack-query'
-    | '/app/books/create'
-    | '/app/books/profile'
+    | '/user/achievements'
+    | '/user/bookmarks'
+    | '/user/my-stories'
+    | '/user/profile'
     | '/auth/_authLayout/creator'
     | '/auth/_authLayout/forgot-password'
     | '/auth/_authLayout/login'
     | '/auth/_authLayout/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
-    | '/app/books/'
+    | '/app/_appLayout/books/create'
+    | '/app/_appLayout/books/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
+  AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   CreatorsDashboardRoute: typeof CreatorsDashboardRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  AppBooksCreateRoute: typeof AppBooksCreateRoute
-  AppBooksProfileRoute: typeof AppBooksProfileRoute
+  UserAchievementsRoute: typeof UserAchievementsRoute
+  UserBookmarksRoute: typeof UserBookmarksRoute
+  UserMyStoriesRoute: typeof UserMyStoriesRoute
+  UserProfileRoute: typeof UserProfileRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
-  AppBooksIndexRoute: typeof AppBooksIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -241,11 +298,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/profile': {
+      id: '/user/profile'
+      path: '/user/profile'
+      fullPath: '/user/profile'
+      preLoaderRoute: typeof UserProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/my-stories': {
+      id: '/user/my-stories'
+      path: '/user/my-stories'
+      fullPath: '/user/my-stories'
+      preLoaderRoute: typeof UserMyStoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/bookmarks': {
+      id: '/user/bookmarks'
+      path: '/user/bookmarks'
+      fullPath: '/user/bookmarks'
+      preLoaderRoute: typeof UserBookmarksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/achievements': {
+      id: '/user/achievements'
+      path: '/user/achievements'
+      fullPath: '/user/achievements'
+      preLoaderRoute: typeof UserAchievementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/tanstack-query': {
@@ -269,6 +361,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthLayoutRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/app/_appLayout': {
+      id: '/app/_appLayout'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppAppLayoutRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/api/demo-names': {
       id: '/api/demo-names'
       path: '/api/demo-names'
@@ -281,13 +380,6 @@ declare module '@tanstack/react-router' {
       path: '/api/ai'
       fullPath: '/api/ai'
       preLoaderRoute: typeof ApiAiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/app/books/': {
-      id: '/app/books/'
-      path: '/app/books'
-      fullPath: '/app/books'
-      preLoaderRoute: typeof AppBooksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -332,22 +424,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthLayoutCreatorRouteImport
       parentRoute: typeof AuthAuthLayoutRoute
     }
-    '/app/books/profile': {
-      id: '/app/books/profile'
-      path: '/app/books/profile'
-      fullPath: '/app/books/profile'
-      preLoaderRoute: typeof AppBooksProfileRouteImport
-      parentRoute: typeof rootRouteImport
+    '/app/_appLayout/books/': {
+      id: '/app/_appLayout/books/'
+      path: '/books'
+      fullPath: '/app/books'
+      preLoaderRoute: typeof AppAppLayoutBooksIndexRouteImport
+      parentRoute: typeof AppAppLayoutRoute
     }
-    '/app/books/create': {
-      id: '/app/books/create'
-      path: '/app/books/create'
+    '/app/_appLayout/books/create': {
+      id: '/app/_appLayout/books/create'
+      path: '/books/create'
       fullPath: '/app/books/create'
-      preLoaderRoute: typeof AppBooksCreateRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppAppLayoutBooksCreateRouteImport
+      parentRoute: typeof AppAppLayoutRoute
     }
   }
 }
+
+interface AppAppLayoutRouteChildren {
+  AppAppLayoutBooksCreateRoute: typeof AppAppLayoutBooksCreateRoute
+  AppAppLayoutBooksIndexRoute: typeof AppAppLayoutBooksIndexRoute
+}
+
+const AppAppLayoutRouteChildren: AppAppLayoutRouteChildren = {
+  AppAppLayoutBooksCreateRoute: AppAppLayoutBooksCreateRoute,
+  AppAppLayoutBooksIndexRoute: AppAppLayoutBooksIndexRoute,
+}
+
+const AppAppLayoutRouteWithChildren = AppAppLayoutRoute._addFileChildren(
+  AppAppLayoutRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppAppLayoutRoute: typeof AppAppLayoutRouteWithChildren
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAppLayoutRoute: AppAppLayoutRouteWithChildren,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface AuthAuthLayoutRouteChildren {
   AuthAuthLayoutCreatorRoute: typeof AuthAuthLayoutCreatorRoute
@@ -381,14 +497,16 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiAiRoute: ApiAiRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
+  AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   CreatorsDashboardRoute: CreatorsDashboardRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  AppBooksCreateRoute: AppBooksCreateRoute,
-  AppBooksProfileRoute: AppBooksProfileRoute,
+  UserAchievementsRoute: UserAchievementsRoute,
+  UserBookmarksRoute: UserBookmarksRoute,
+  UserMyStoriesRoute: UserMyStoriesRoute,
+  UserProfileRoute: UserProfileRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
-  AppBooksIndexRoute: AppBooksIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
