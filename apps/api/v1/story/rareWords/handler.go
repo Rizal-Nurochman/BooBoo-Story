@@ -19,6 +19,8 @@ type handler struct {
 	service Service
 }
 
+
+
 // Create implements Handler.
 func (h *handler) Create(c *gin.Context) {
 	var input validations.StoryContentRareWordCreate
