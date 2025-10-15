@@ -7,7 +7,7 @@ import (
 
 type Repository interface {
 	Insert(bookmark models.StoryBookmark) (models.StoryBookmark, error)
-	FindAll(userID string) ([]models.StoryBookmark, error)
+	FindAll(userID string, page int, limit int) ([]models.StoryBookmark, int64, error)
 	FindByID(userID string, id string) (models.StoryBookmark, error)
 	Delete(bookmark models.StoryBookmark) (models.StoryBookmark, error)
 }
@@ -28,13 +28,23 @@ func (r *repository) Insert(bookmark models.StoryBookmark) (models.StoryBookmark
 	return bookmark, nil
 }
 
-func (r *repository) FindAll(userID string) ([]models.StoryBookmark, error) {
+func (r *repository) FindAll(userID string, page int, limit int) ([]models.StoryBookmark, int64, error) {
 	var bookmarks []models.StoryBookmark
-	err := r.db.Where("user_id = ?", userID).Find(&bookmarks).Error
+	var total int64
+
+	// Hitung total bookmark untuk user ini
+	r.db.Model(&models.StoryBookmark{}).Where("user_id = ?", userID).Count(&total)
+
+	// Hitung offset untuk query
+	offset := (page - 1) * limit
+
+	// Ambil data bookmark dengan limit dan offset
+	err := r.db.Where("user_id = ?", userID).Limit(limit).Offset(offset).Find(&bookmarks).Error
 	if err != nil {
-		return bookmarks, err
+		return bookmarks, total, err
 	}
-	return bookmarks, nil
+	
+	return bookmarks, total, nil
 }
 
 func (r *repository) FindByID(userID string, id string) (models.StoryBookmark, error) {

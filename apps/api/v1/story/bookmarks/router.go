@@ -16,7 +16,6 @@ func BookmarkRouter(router *gin.RouterGroup, db *gorm.DB) {
 	{
 		bookmarkRouter.POST("/", bookmarkHandler.CreateBookmark)
 		bookmarkRouter.GET("/", bookmarkHandler.GetBookmarks)
-		bookmarkRouter.GET("/:id", bookmarkHandler.GetBookmarkByID)
 		bookmarkRouter.DELETE("/:id", bookmarkHandler.DeleteBookmark)
 	}
 }

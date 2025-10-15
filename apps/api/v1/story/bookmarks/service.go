@@ -7,8 +7,7 @@ import (
 
 type Service interface {
 	CreateBookmark(userID string, storyID string) (models.StoryBookmark, error)
-	GetBookmarks(userID string) ([]models.StoryBookmark, error)
-	GetBookmarkByID(userID string, id string) (models.StoryBookmark, error)
+	GetBookmarks(userID string, page int, limit int) ([]models.StoryBookmark, int64, error)
 	DeleteBookmark(userID string, id string) (models.StoryBookmark, error)
 }
 
@@ -33,20 +32,12 @@ func (s *service) CreateBookmark(userID string, storyID string) (models.StoryBoo
 	return newBookmark, nil
 }
 
-func (s *service) GetBookmarks(userID string) ([]models.StoryBookmark, error) {
-	bookmarks, err := s.repository.FindAll(userID)
+func (s *service) GetBookmarks(userID string, page int, limit int) ([]models.StoryBookmark, int64, error) {
+	bookmarks, total, err := s.repository.FindAll(userID, page, limit)
 	if err != nil {
-		return bookmarks, err
+		return bookmarks, total, err
 	}
-	return bookmarks, nil
-}
-
-func (s *service) GetBookmarkByID(userID string, id string) (models.StoryBookmark, error) {
-	bookmark, err := s.repository.FindByID(userID, id)
-	if err != nil {
-		return bookmark, err
-	}
-	return bookmark, nil
+	return bookmarks, total, nil
 }
 
 func (s *service) DeleteBookmark(userID string, id string) (models.StoryBookmark, error) {
