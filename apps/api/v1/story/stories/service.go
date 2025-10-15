@@ -16,7 +16,7 @@ type Service interface {
 }
 
 type service struct {
-	repo repository
+	repo Repository
 }
 
 // ✅ CREATE
@@ -103,6 +103,6 @@ func (s *service) Update(idStr string, story validations.StoryUpdate) (*models.S
 	return updatedStory, nil
 }
 
-func NewService(repo repository) Service {
-	return &service{repo: repo}
+func NewService(repo Repository) Service {
+	return &service{repo}
 }
