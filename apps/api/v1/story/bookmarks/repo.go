@@ -6,10 +6,10 @@ import (
 )
 
 type Repository interface {
-	Insert(bookmark models.StoryBookmark) (models.StoryBookmark, error)
-	FindAll(userID string, page int, limit int) ([]models.StoryBookmark, int64, error)
-	FindByID(userID string, id string) (models.StoryBookmark, error)
-	Delete(bookmark models.StoryBookmark) (models.StoryBookmark, error)
+	Create(bookmark models.StoryBookmark) (models.StoryBookmark, error)
+	FindAll(userID uint,includes []string, page int, limit int, q string) ([]models.StoryBookmark, int64, error)
+	FindByID(userID uint, bookmarkID uint, includes []string) (models.StoryBookmark, error)
+	Delete(ID uint) (error)
 }
 
 type repository struct {
@@ -20,7 +20,7 @@ func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) Insert(bookmark models.StoryBookmark) (models.StoryBookmark, error) {
+func (r *repository) Create(bookmark models.StoryBookmark) (models.StoryBookmark, error) {
 	err := r.db.Create(&bookmark).Error
 	if err != nil {
 		return bookmark, err
@@ -28,38 +28,48 @@ func (r *repository) Insert(bookmark models.StoryBookmark) (models.StoryBookmark
 	return bookmark, nil
 }
 
-func (r *repository) FindAll(userID string, page int, limit int) ([]models.StoryBookmark, int64, error) {
+func (r *repository) FindAll(userID uint, includes []string, page int, limit int, q string) ([]models.StoryBookmark, int64, error) {
 	var bookmarks []models.StoryBookmark
 	var total int64
 
-	// Hitung total bookmark untuk user ini
-	r.db.Model(&models.StoryBookmark{}).Where("user_id = ?", userID).Count(&total)
+	query:=r.db.Model(&models.StoryBookmark{}).Where("user_id = ?", userID)
+	includes = append(includes, "Story")
 
-	// Hitung offset untuk query
-	offset := (page - 1) * limit
-
-	// Ambil data bookmark dengan limit dan offset
-	err := r.db.Where("user_id = ?", userID).Limit(limit).Offset(offset).Find(&bookmarks).Error
-	if err != nil {
-		return bookmarks, total, err
+	if q!=""{
+		query = query.Where("title Like ?","%"+q+"%")
 	}
-	
+
+	for _, inc := range includes{
+		query =query.Preload(inc)
+	}
+
+	if err := query.Count(&total).Error; err != nil{
+		return  nil, 0, err
+	}
+
+	if err :=query.Offset((page-1)*limit).Limit(limit).Find(&bookmarks).Error; err != nil{
+		return nil, 0, err
+	}
+
 	return bookmarks, total, nil
 }
 
-func (r *repository) FindByID(userID string, id string) (models.StoryBookmark, error) {
+func (r *repository) FindByID(userID uint, bookmarkID uint, includes []string) (models.StoryBookmark, error) {
 	var bookmark models.StoryBookmark
-	err := r.db.Where("user_id = ? AND id = ?", userID, id).First(&bookmark).Error
+
+	err := r.db.Where("user_id = ? AND id = ?", userID, bookmarkID).First(&bookmark).Error
 	if err != nil {
 		return bookmark, err
 	}
+
 	return bookmark, nil
 }
 
-func (r *repository) Delete(bookmark models.StoryBookmark) (models.StoryBookmark, error) {
-	err := r.db.Delete(&bookmark).Error
+func (r *repository) Delete(ID uint) (error) {
+	var bookmark models.StoryBookmark
+	err := r.db.Where("id = ?", ID).Delete(&bookmark).Error
 	if err != nil {
-		return bookmark, err
+		return err
 	}
-	return bookmark, nil
+	return nil
 }

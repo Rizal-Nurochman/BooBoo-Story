@@ -68,7 +68,7 @@ func (r *repository) FindByID(id uint, includes []string) (*models.Story, error)
 		query =query.Preload(inc)
 	}
 
-	if err := query.First(&story).Error;err != nil{
+	if err := query.First(&story).Error; err != nil {
 		return nil, err
 	}
 	return &story, nil	

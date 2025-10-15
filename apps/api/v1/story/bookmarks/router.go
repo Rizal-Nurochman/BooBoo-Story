@@ -11,7 +11,7 @@ func BookmarkRouter(router *gin.RouterGroup, db *gorm.DB) {
 	bookmarkService := NewService(bookmarkRepository)
 	bookmarkHandler := NewBookmarkHandler(bookmarkService)
 
-	bookmarkRouter := router.Group("/api/v1/story-bookmarks")
+	bookmarkRouter := router.Group("/story-bookmarks")
 	bookmarkRouter.Use(middleware.RequireAuth())
 	{
 		bookmarkRouter.POST("/", bookmarkHandler.CreateBookmark)

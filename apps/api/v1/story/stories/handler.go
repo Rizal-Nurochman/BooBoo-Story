@@ -59,6 +59,7 @@ func (h *handler) GetAll(c *gin.Context) {
 		return
 	}
 	stories, total, err := h.service.GetAll(includes, int(page), int(limit), q)
+	
 	if err != nil{
 		utils.JSON(c, http.StatusInternalServerError,"error","Failed to fetch stories", nil, err.Error(), nil)
 		return

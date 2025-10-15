@@ -1,9 +1,8 @@
 package story
 
 import (
-	"github.com/BooBooStory/v1/creators"
 	"github.com/BooBooStory/v1/story/bookmarks"
-	"github.com/BooBooStory/v1/story/rareWords"
+	rarewords "github.com/BooBooStory/v1/story/rareWords"
 	"github.com/BooBooStory/v1/story/stories"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -16,5 +15,4 @@ func StoryRouter(rg *gin.RouterGroup, db *gorm.DB) {
 	stories.StoriesRouter(rg, db)
 	rarewords.RareWordsRouter(rg, db)
 	bookmarks.BookmarkRouter(rg, db)
-	creators.CreatorRouter(rg, db)
 }

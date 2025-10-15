@@ -2,8 +2,6 @@ package bookmarks
 
 import (
 	"net/http"
-	"strconv"
-
 	"github.com/BooBooStory/utils"
 	"github.com/gin-gonic/gin"
 )
@@ -12,50 +10,51 @@ type bookmarkHandler struct {
 	service Service
 }
 
+type CreateBookmarkInput struct {
+	StoryID uint `json:"story_id" binding:"required"`
+}
+
 func NewBookmarkHandler(service Service) *bookmarkHandler {
 	return &bookmarkHandler{service}
 }
 
 func (h *bookmarkHandler) CreateBookmark(c *gin.Context) {
-	var input struct {
-		StoryID string `json:"story_id" binding:"required"`
-	}
+	var input CreateBookmarkInput
+	err := c.ShouldBindBodyWithJSON(&input)
 
-	err := c.ShouldBindJSON(&input)
-	if err != nil {
-		utils.JSON(c, http.StatusBadRequest, "error", "Input tidak valid", nil, err.Error(), nil)
+	if err != nil{
+		utils.JSON(c, http.StatusBadRequest, "error", "Invalid request body", nil, err.Error(), nil)
 		return
 	}
 
-	userID := c.MustGet("user_id").(string)
-
-	newBookmark, err := h.service.CreateBookmark(userID, input.StoryID)
+	userID := c.MustGet("user_id").(uint)
+	bookmark, err := h.service.CreateBookmark(userID, input.StoryID)
 	if err != nil {
-		utils.JSON(c, http.StatusBadRequest, "error", "Gagal membuat bookmark", nil, err.Error(), nil)
+		utils.JSON(c, http.StatusInternalServerError, "error", "Failed to create bookmark", nil, err.Error(), nil)
 		return
 	}
-	
-	utils.JSON(c, http.StatusOK, "success", "Berhasil membuat bookmark", newBookmark, nil, nil)
+
+	utils.JSON(c, http.StatusOK, "success", "Bookmark created successfully", bookmark, nil, nil)
 }
 
 func (h *bookmarkHandler) GetBookmarks(c *gin.Context) {
-	userID := c.MustGet("currentUser").(string)
-
-	// Ambil query param 'page' dan 'limit' dari URL
+	userID := c.MustGet("user_id").(uint)
 	pageStr := c.DefaultQuery("page", "1")
 	limitStr := c.DefaultQuery("limit", "10")
+	q := c.DefaultQuery("q", "")
+	includes := c.QueryArray("include")
 
-	page, err := strconv.Atoi(pageStr)
-	if err != nil || page < 1 {
+	page, err := utils.ToUint(pageStr)
+	if err != nil || page < 1 || page == 0 {
 		page = 1
 	}
 
-	limit, err := strconv.Atoi(limitStr)
+	limit, err := utils.ToUint(limitStr)
 	if err != nil || limit < 1 {
 		limit = 10
 	}
-	
-	bookmarks, total, err := h.service.GetBookmarks(userID, page, limit)
+
+	bookmarks, total, err := h.service.GetAllBookmarks(userID, includes, int(page), int(limit), q)
 	if err != nil {
 		utils.JSON(c, http.StatusBadRequest, "error", "Gagal mendapatkan bookmark", nil, err.Error(), nil)
 		return
@@ -71,11 +70,24 @@ func (h *bookmarkHandler) GetBookmarks(c *gin.Context) {
 	utils.JSON(c, http.StatusOK, "success", "Berhasil mendapatkan semua bookmark", bookmarks, nil, meta)
 }
 
-func (h *bookmarkHandler) DeleteBookmark(c *gin.Context) {
-	userID := c.MustGet("user_id").(string)
-	id := c.Param("id")
+func (h *bookmarkHandler) GetBookmarkByID(c *gin.Context) {
+	userID := c.MustGet("user_id").(uint)
+	bookmarkID := c.Param("id")
+	includes := c.QueryArray("include")
 
-	_, err := h.service.DeleteBookmark(userID, id)
+	bookmark, err := h.service.GetBookmarkByID(userID, bookmarkID, includes)
+	if err != nil {
+		utils.JSON(c, http.StatusNotFound, "error", "Gagal mendapatkan bookmark", nil, err.Error(), nil)
+		return
+	}
+
+	utils.JSON(c, http.StatusOK, "success", "Berhasil mendapatkan bookmark", bookmark, nil, nil)
+}
+
+func (h *bookmarkHandler) DeleteBookmark(c *gin.Context) {
+	bookmarkID := c.Param("id")
+
+	err := h.service.DeleteBookmark(bookmarkID)
 	if err != nil {
 		utils.JSON(c, http.StatusNotFound, "error", "Gagal menghapus bookmark", nil, err.Error(), nil)
 		return

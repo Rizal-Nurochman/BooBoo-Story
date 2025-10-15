@@ -6,10 +6,11 @@ import (
 )
 
 type Repository interface {
-	FindByCreatorID(creatorID uint) (models.Creator, error)
-	Update(creator models.Creator) (models.Creator, error)
-	FindByID(id uint) (models.Creator, error)
-	Delete(creator models.Creator) (models.Creator, error)
+	Create(creator models.Creator) (models.Creator, error)
+	FindAll(creatorID uint) ([]models.Creator, error)
+	FindByID(creatorID uint, includes []string, page int, limit int, q string) (*models.Creator, error)
+	Update(creatorID uint, creator models.Creator) (*models.Creator, error)
+	Delete(creatorID uint) error
 }
 
 type repository struct {
@@ -20,36 +21,11 @@ func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindByCreatorID(creatorID uint) (models.Creator, error) {
-	var creator models.Creator
-	err := r.db.Where("user_id = ?", creatorID).First(&creator).Error
+func (r *repository) Create(creator models.Creator) (models.Creator, error) {
+	err := r.db.Create(&creator).Error
 	if err != nil {
 		return creator, err
 	}
-	return creator, nil
-}
 
-func (r *repository) Update(creator models.Creator) (models.Creator, error) {
-	err := r.db.Save(&creator).Error
-	if err != nil {
-		return creator, err
-	}
-	return creator, nil
-}
-
-func (r *repository) FindByID(id uint) (models.Creator, error) {
-	var creator models.Creator
-	err := r.db.First(&creator, id).Error
-	if err != nil {
-		return creator, err
-	}
-	return creator, nil
-}
-
-func (r *repository) Delete(creator models.Creator) (models.Creator, error) {
-	err := r.db.Delete(&creator).Error
-	if err != nil {
-		return creator, err
-	}
 	return creator, nil
 }
