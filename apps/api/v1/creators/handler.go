@@ -51,7 +51,6 @@ func (h *creatorHandler) UpdateMyProfile(c *gin.Context) {
 	utils.JSON(c, http.StatusOK, "success", "Berhasil memperbarui profil", updatedCreator, nil, nil)
 }
 
-// --- Handler Baru untuk Admin ---
 
 // Handler untuk mendapatkan profil kreator berdasarkan ID kreator
 func (h *creatorHandler) GetCreatorByID(c *gin.Context) {
