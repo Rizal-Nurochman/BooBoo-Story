@@ -9,12 +9,12 @@ const borders=[
     {
         id:1,
         img:'/images/core/border.png',
-        style:'w-[30%] md:w-[20%] absolute top-0 right-0 z-20'
+        style:'w-[30%] md:w-[15%] absolute top-0 right-0 z-20'
     },
     {
         id:1,
         img:'/images/core/border.png',
-        style:'w-[30%] md:w-[20%] rotate-[180deg] absolute bottom-0 left-0 z-20'
+        style:'w-[30%] md:w-[15%] rotate-[180deg] absolute bottom-0 left-0 z-20'
     },
 ]
 
@@ -52,6 +52,8 @@ function AuthLayout() {
       {borders.map((img)=>(
           <img src={img.img} className={img.style} key={img.id}  />
       ))}
+
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#5b7652]/10 to-[#3f5c43]/30 pointer-events-none blur-2xl" />
     </div>
   )
 }

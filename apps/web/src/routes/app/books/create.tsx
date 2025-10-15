@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/books/create")({
+export const Route = createFileRoute("/app/books/create")({
   component: CreateStory,
 });
 

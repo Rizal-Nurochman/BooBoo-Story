@@ -17,7 +17,7 @@ code {
 }
 
 :root {
-  --background: #F4EEDB;
+  --background: #fef7e6;
   --foreground: #6D4C41;
 
   --card: oklch(1 0 0);

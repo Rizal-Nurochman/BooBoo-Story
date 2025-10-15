@@ -12,20 +12,20 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BooksIndexRouteImport } from './routes/books/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as CreatorsDashboardRouteImport } from './routes/creators/dashboard'
-import { Route as BooksProfileRouteImport } from './routes/books/profile'
-import { Route as BooksCreateRouteImport } from './routes/books/create'
 import { Route as AuthAuthLayoutRouteImport } from './routes/auth/_authLayout'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
+import { Route as AppBooksIndexRouteImport } from './routes/app/books/index'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 import { Route as AuthAuthLayoutRegisterRouteImport } from './routes/auth/_authLayout/register'
 import { Route as AuthAuthLayoutLoginRouteImport } from './routes/auth/_authLayout/login'
 import { Route as AuthAuthLayoutForgotPasswordRouteImport } from './routes/auth/_authLayout/forgot-password'
 import { Route as AuthAuthLayoutCreatorRouteImport } from './routes/auth/_authLayout/creator'
+import { Route as AppBooksProfileRouteImport } from './routes/app/books/profile'
+import { Route as AppBooksCreateRouteImport } from './routes/app/books/create'
 
 const AuthRouteImport = createFileRoute('/auth')()
 
@@ -39,11 +39,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BooksIndexRoute = BooksIndexRouteImport.update({
-  id: '/books/',
-  path: '/books/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   id: '/demo/tanstack-query',
   path: '/demo/tanstack-query',
@@ -52,16 +47,6 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
 const CreatorsDashboardRoute = CreatorsDashboardRouteImport.update({
   id: '/creators/dashboard',
   path: '/creators/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BooksProfileRoute = BooksProfileRouteImport.update({
-  id: '/books/profile',
-  path: '/books/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BooksCreateRoute = BooksCreateRouteImport.update({
-  id: '/books/create',
-  path: '/books/create',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthAuthLayoutRoute = AuthAuthLayoutRouteImport.update({
@@ -76,6 +61,11 @@ const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
 const ApiAiRoute = ApiAiRouteImport.update({
   id: '/api/ai',
   path: '/api/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBooksIndexRoute = AppBooksIndexRouteImport.update({
+  id: '/app/books/',
+  path: '/app/books/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
@@ -109,40 +99,50 @@ const AuthAuthLayoutCreatorRoute = AuthAuthLayoutCreatorRouteImport.update({
   path: '/creator',
   getParentRoute: () => AuthAuthLayoutRoute,
 } as any)
+const AppBooksProfileRoute = AppBooksProfileRouteImport.update({
+  id: '/app/books/profile',
+  path: '/app/books/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBooksCreateRoute = AppBooksCreateRouteImport.update({
+  id: '/app/books/create',
+  path: '/app/books/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
-  '/books/create': typeof BooksCreateRoute
-  '/books/profile': typeof BooksProfileRoute
   '/creators/dashboard': typeof CreatorsDashboardRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/books': typeof BooksIndexRoute
+  '/app/books/create': typeof AppBooksCreateRoute
+  '/app/books/profile': typeof AppBooksProfileRoute
   '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/app/books': typeof AppBooksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
-  '/books/create': typeof BooksCreateRoute
-  '/books/profile': typeof BooksProfileRoute
   '/creators/dashboard': typeof CreatorsDashboardRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/books': typeof BooksIndexRoute
+  '/app/books/create': typeof AppBooksCreateRoute
+  '/app/books/profile': typeof AppBooksProfileRoute
   '/auth/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/login': typeof AuthAuthLayoutLoginRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/app/books': typeof AppBooksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -151,17 +151,17 @@ export interface FileRoutesById {
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth': typeof AuthRouteWithChildren
   '/auth/_authLayout': typeof AuthAuthLayoutRouteWithChildren
-  '/books/create': typeof BooksCreateRoute
-  '/books/profile': typeof BooksProfileRoute
   '/creators/dashboard': typeof CreatorsDashboardRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/books/': typeof BooksIndexRoute
+  '/app/books/create': typeof AppBooksCreateRoute
+  '/app/books/profile': typeof AppBooksProfileRoute
   '/auth/_authLayout/creator': typeof AuthAuthLayoutCreatorRoute
   '/auth/_authLayout/forgot-password': typeof AuthAuthLayoutForgotPasswordRoute
   '/auth/_authLayout/login': typeof AuthAuthLayoutLoginRoute
   '/auth/_authLayout/register': typeof AuthAuthLayoutRegisterRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/app/books/': typeof AppBooksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -170,34 +170,34 @@ export interface FileRouteTypes {
     | '/api/ai'
     | '/api/demo-names'
     | '/auth'
-    | '/books/create'
-    | '/books/profile'
     | '/creators/dashboard'
     | '/demo/tanstack-query'
-    | '/books'
+    | '/app/books/create'
+    | '/app/books/profile'
     | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
     | '/auth/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/app/books'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/api/ai'
     | '/api/demo-names'
     | '/auth'
-    | '/books/create'
-    | '/books/profile'
     | '/creators/dashboard'
     | '/demo/tanstack-query'
-    | '/books'
+    | '/app/books/create'
+    | '/app/books/profile'
     | '/auth/creator'
     | '/auth/forgot-password'
     | '/auth/login'
     | '/auth/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/app/books'
   id:
     | '__root__'
     | '/'
@@ -205,17 +205,17 @@ export interface FileRouteTypes {
     | '/api/demo-names'
     | '/auth'
     | '/auth/_authLayout'
-    | '/books/create'
-    | '/books/profile'
     | '/creators/dashboard'
     | '/demo/tanstack-query'
-    | '/books/'
+    | '/app/books/create'
+    | '/app/books/profile'
     | '/auth/_authLayout/creator'
     | '/auth/_authLayout/forgot-password'
     | '/auth/_authLayout/login'
     | '/auth/_authLayout/register'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/app/books/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -223,13 +223,13 @@ export interface RootRouteChildren {
   ApiAiRoute: typeof ApiAiRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   AuthRoute: typeof AuthRouteWithChildren
-  BooksCreateRoute: typeof BooksCreateRoute
-  BooksProfileRoute: typeof BooksProfileRoute
   CreatorsDashboardRoute: typeof CreatorsDashboardRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  BooksIndexRoute: typeof BooksIndexRoute
+  AppBooksCreateRoute: typeof AppBooksCreateRoute
+  AppBooksProfileRoute: typeof AppBooksProfileRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
+  AppBooksIndexRoute: typeof AppBooksIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -248,13 +248,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/books/': {
-      id: '/books/'
-      path: '/books'
-      fullPath: '/books'
-      preLoaderRoute: typeof BooksIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/demo/tanstack-query': {
       id: '/demo/tanstack-query'
       path: '/demo/tanstack-query'
@@ -267,20 +260,6 @@ declare module '@tanstack/react-router' {
       path: '/creators/dashboard'
       fullPath: '/creators/dashboard'
       preLoaderRoute: typeof CreatorsDashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/books/profile': {
-      id: '/books/profile'
-      path: '/books/profile'
-      fullPath: '/books/profile'
-      preLoaderRoute: typeof BooksProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/books/create': {
-      id: '/books/create'
-      path: '/books/create'
-      fullPath: '/books/create'
-      preLoaderRoute: typeof BooksCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/_authLayout': {
@@ -302,6 +281,13 @@ declare module '@tanstack/react-router' {
       path: '/api/ai'
       fullPath: '/api/ai'
       preLoaderRoute: typeof ApiAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/books/': {
+      id: '/app/books/'
+      path: '/app/books'
+      fullPath: '/app/books'
+      preLoaderRoute: typeof AppBooksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -346,6 +332,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthLayoutCreatorRouteImport
       parentRoute: typeof AuthAuthLayoutRoute
     }
+    '/app/books/profile': {
+      id: '/app/books/profile'
+      path: '/app/books/profile'
+      fullPath: '/app/books/profile'
+      preLoaderRoute: typeof AppBooksProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/books/create': {
+      id: '/app/books/create'
+      path: '/app/books/create'
+      fullPath: '/app/books/create'
+      preLoaderRoute: typeof AppBooksCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -382,13 +382,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAiRoute: ApiAiRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   AuthRoute: AuthRouteWithChildren,
-  BooksCreateRoute: BooksCreateRoute,
-  BooksProfileRoute: BooksProfileRoute,
   CreatorsDashboardRoute: CreatorsDashboardRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  BooksIndexRoute: BooksIndexRoute,
+  AppBooksCreateRoute: AppBooksCreateRoute,
+  AppBooksProfileRoute: AppBooksProfileRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
+  AppBooksIndexRoute: AppBooksIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

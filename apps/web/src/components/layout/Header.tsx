@@ -6,14 +6,14 @@ const Header = () => {
 
   const { pathname }=useLocation()
 
-  if (pathname.startsWith('/auth') || pathname.startsWith('/books')) return null
+  if(pathname.includes('/app/')) return null
 
   return (
     <motion.header 
       variants={slideDown}
       initial="hidden"
       animate="visible"
-      className="w-full absolute top-0 left-0 py-0.5 md:py-1.5"
+      className="w-full absolute top-0 left-0 py-0.5 md:py-1.5 z-50"
     >
       <nav className="w-full max-w-[90%] md:max-w-[90%] xl:max-w-[80%] px-4 md:px-6 lg:px-8 mx-auto flex justify-between items-center">
         <motion.div
@@ -27,7 +27,7 @@ const Header = () => {
             className="cursor-pointer hover:scale-105 transition-all duration-100 flex items-center"
           >
             <img
-              src="images/core/logo.png"
+              src="/images/core/logo.png"
               alt="image-logo"
               className="h-16 md:h-20 lg:h-24 xl:h-28 w-auto block"
             />

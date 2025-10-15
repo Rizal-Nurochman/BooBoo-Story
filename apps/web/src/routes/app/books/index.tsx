@@ -11,7 +11,7 @@ const allBooks = [
   { title: "Istana Di Balik Awan", author: "Alya P.", cover: "/books/book4.jpg", category: "Kerajaan & Pahlawan" },
 ];
 
-export const Route = createFileRoute("/books/")({
+export const Route = createFileRoute("/app/books/")({
   component: RouteComponent,
 });
 
