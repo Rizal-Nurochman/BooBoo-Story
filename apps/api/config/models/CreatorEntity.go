@@ -19,8 +19,8 @@ type Creator struct {
 	YoutubeURL   string
 	LinkedInURL  string
 	Portfolio    string
-	IsVerified   bool
-	Status       string // "active", "banned", "pending"
+	IsVerified   bool			`gorm:"default:false"`
+	Status       string 	`gorm:"default:'active'"`
 
 	UserID       uint     `gorm:"unique"`
 	User         *User    `gorm:"foreignKey:UserID"`
