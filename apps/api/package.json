@@ -2,8 +2,8 @@
   "name": "api",
   "scripts": {
     "dev": "set \"GOCACHE=%USERPROFILE%\\.cache\\go-build\" && go run main.go",
-    "build": "set \"GOCACHE=%USERPROFILE%\\.cache\\go-build\" && go build -o api main.go"
-    
+    "build": "set \"GOCACHE=%USERPROFILE%\\.cache\\go-build\" && go build -o api main.go",
+    "postinstall": "go mod tidy"
   }
 }
 
