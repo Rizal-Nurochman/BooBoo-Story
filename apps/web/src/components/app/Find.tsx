@@ -13,7 +13,7 @@ const Find: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (query !== (search.q || "")) setQuery(search.q || "");
+    if (query !== (search?.q || "")) setQuery(search.q || "");
   }, [search.q]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Find: React.FC = () => {
       } else {
         navigate({
           to: "/app/books",
-          search: { page: search.page, limit: search.limit },
+          search: { page: search.page, limit: search.limit, q: undefined },
         });
         localStorage.removeItem("book_search");
       }
@@ -157,7 +157,7 @@ const Find: React.FC = () => {
               }}
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
-              onMouseDown={(e) => {
+              onMouseDown={(e:any) => {
                 e.preventDefault();
                 handleClear();
               }}

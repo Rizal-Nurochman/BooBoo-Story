@@ -22,15 +22,15 @@ const HeaderApp = () => {
 
   return (
     <header
-      className={`sticky flex items-center justify-between top-0 left-0 w-full py-4 px-4 sm:px-6 lg:px-10 transition-all duration-300 z-20 ${
+      className={`sticky flex items-center justify-between top-0 left-0 w-full py-2 px-4 sm:px-6 lg:px-10 transition-all duration-300 z-20 ${
         isScrolled ? 'bg-primary/20 backdrop-blur-xl shadow-md' : 'bg-transparent'
       }`}
     >
       <SearchHeader />
       <div className='flex gap-4 items-center'>
         <Link to="/app/books/create">
-          <Button className="bg-gradient-to-r cursor-pointer from-green-500 to-emerald-600 text-white font-semibold shadow-md hover:shadow-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200">
-            <Plus className="w-4 h-4 mr-2" />
+          <Button size={'sm'} className="bg-gradient-to-r cursor-pointer from-green-500 to-emerald-600 text-white font-semibold shadow-md hover:shadow-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200">
+            <Plus className="w-2 h-2 mr-2" />
             Buat Cerita
           </Button>
         </Link>

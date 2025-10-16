@@ -8,6 +8,9 @@ import { Button } from "../ui/button"
 import { Eye, EyeOff } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import GoogleIcon from "../ui/GoogleIcon"
+import { AuthService } from "@/services/auth.service"
+import { toast } from "sonner"
+import { sleep } from "@/lib/api"
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -34,8 +37,14 @@ const LoginForm = () => {
     },
   ] as const
 
-  function onSubmit(data: LoginSchemaType) {
-    console.log("Login:", data)
+    async function onSubmit (data: LoginSchemaType) {
+      await sleep();
+     const res= await AuthService.login(data)
+     if (res.status === 'error') {
+      toast.error(res.message || 'Gagal masuk. Silakan coba lagi.')
+     }else{
+      toast.success('Berhasil masuk. Selamat datang kembali!')
+     }
   }
 
   return (
@@ -87,8 +96,8 @@ const LoginForm = () => {
             />
           ))}
 
-          <Button type="submit" className="w-full py-2 text-sm font-medium cursor-pointer">
-            Masuk
+          <Button disabled={form.formState.isSubmitting} type="submit" className="w-full py-2 text-sm font-medium cursor-pointer disabled:cursor-not-allowed">
+            {form.formState.isSubmitting ? "Memproses..." : "Masuk"}
           </Button>
 
           <div className="flex w-full items-center justify-center gap-2 text-xs text-muted-foreground">

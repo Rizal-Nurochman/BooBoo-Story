@@ -15,6 +15,8 @@ import appCss from '../styles.css?url'
 import type { QueryClient } from '@tanstack/react-query'
 
 import BackToTop from '@/components/layout/BackToTop'
+import NotfoundPage from '@/components/layout/NotfoundPage'
+import { Toaster } from '@/components/ui/sonner'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -43,6 +45,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   }),
 
   shellComponent: RootDocument,
+  notFoundComponent: () => <NotfoundPage />
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -70,6 +73,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         />
         <BackToTop />
         <Scripts />
+        <Toaster position='top-center'  />
       </body>
     </html>
   )

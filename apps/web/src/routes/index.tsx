@@ -8,6 +8,7 @@ import AuthorSection from '@/components/home/AuthorSection'
 
 export const Route = createFileRoute('/')({
   component: App,
+  ssr: false,
 })
 
 function App() {

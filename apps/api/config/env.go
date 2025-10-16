@@ -12,7 +12,8 @@ type Env struct {
 	GoogleSecret     string
 	GoogleRedirect   string
 	JwtSecret        string
-	FE_URL 					 string
+	FE_URL 			 string
+	APP_VERSION      string
 	SmtpHost         string
 	SmtpPort         string
 	SmtpUser         string
@@ -40,5 +41,6 @@ func LoadEnv() {
 		SmtpUser:        os.Getenv("SMTP_USER"),
 		SmtpPassword:    os.Getenv("SMTP_PASSWORD"),
 		SmtpSenderEmail: os.Getenv("SMTP_SENDER_EMAIL"),
+		APP_VERSION:     os.Getenv("APP_VERSION"),
 	}
 }

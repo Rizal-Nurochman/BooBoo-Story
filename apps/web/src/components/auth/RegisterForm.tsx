@@ -8,6 +8,9 @@ import { Button } from "../ui/button"
 import { Eye, EyeOff } from "lucide-react"
 import { Link } from "@tanstack/react-router"
 import GoogleIcon from "../ui/GoogleIcon"
+import { toast } from "sonner"
+import { AuthService } from "@/services/auth.service"
+import { sleep } from "@/lib/api"
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -16,7 +19,7 @@ const RegisterForm = () => {
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -25,7 +28,7 @@ const RegisterForm = () => {
 
   const fields = [
     {
-      name: "username",
+      name: "name",
       label: "Username",
       placeholder: "Masukkan username kamu",
       type: "text",
@@ -58,17 +61,23 @@ const RegisterForm = () => {
     },
   ] as const
 
-  function onSubmit(data: registerSchemaType) {
-    console.log("Selamat datang, penjelajah dunia digital! 🌈", data)
+  async function onSubmit(data: registerSchemaType) {
+    await sleep();
+    const res= await AuthService.register(data)
+    if (res.status === 'error') {
+      toast.error(res.message || 'Gagal masuk. Silakan coba lagi.')
+   }else{
+      toast.success('Berhasil daftar, selamat datang '+res.data?.name)
+   }
   }
 
   return (
     <div className="w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 w-full">
-          {fields.map((field) => (
+          {fields.map((field, index) => (
             <FormField
-              key={field.name}
+              key={index+field.name}
               control={form.control}
               name={field.name}
               render={({ field: f }) => (
@@ -99,8 +108,8 @@ const RegisterForm = () => {
             />
           ))}
 
-          <Button type="submit" className="w-full text-sm py-2 cursor-pointer">
-            Daftar
+          <Button type="submit" disabled={form.formState.isSubmitting} className="w-full text-sm py-2 cursor-pointer disabled:cursor-not-allowed">
+            {form.formState.isSubmitting ? "Memproses..." : "Daftar Sekarang"}
           </Button>
 
           <div className="flex w-full items-center justify-center gap-2 text-xs text-muted-foreground">

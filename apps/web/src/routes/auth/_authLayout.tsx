@@ -2,6 +2,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/auth/_authLayout')({
   component: AuthLayout,
+  ssr: false,
 })
 
 
@@ -12,7 +13,7 @@ const borders=[
         style:'w-[30%] md:w-[15%] absolute top-0 right-0 z-20'
     },
     {
-        id:1,
+        id:2,
         img:'/images/core/border.png',
         style:'w-[30%] md:w-[15%] rotate-[180deg] absolute bottom-0 left-0 z-20'
     },

@@ -1,0 +1,1 @@
+export const BE_API_URL = import.meta.env.VITE_BE_API_URL || 'http://localhost:3001'+'/api/'+import.meta.env.VITE_BE_API_VERSION || 'v1';

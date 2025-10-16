@@ -15,7 +15,7 @@ export const loginSchema = z.object({
 
 export const registerSchema = z
   .object({
-    username: z
+    name: z
       .string()
       .min(3, { message: "Username minimal 3 karakter" })
       .max(20, { message: "Username maksimal 20 karakter" })

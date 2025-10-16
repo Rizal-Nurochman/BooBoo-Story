@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"time"
 
 	"github.com/BooBooStory/config"
 	"github.com/BooBooStory/config/database"
@@ -10,29 +11,43 @@ import (
 	"github.com/BooBooStory/v1/auth"
 	"github.com/BooBooStory/v1/categories"
 	"github.com/BooBooStory/v1/story"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-
 func main() {
-		database.ConnectDatabase()
-		utils.InitLogger()
-		middleware.InitMiddleware(database.DB)
-		
-		DB := database.DB
-		
-		config.LoadEnv()
-		router := gin.Default()
+	config.LoadEnv()
+	database.ConnectDatabase()
+	utils.InitLogger()
+	middleware.InitMiddleware(database.DB)
 
-		utils.LoadCors(router)
+	DB := database.DB
+	router := gin.Default()
 
-		api := router.Group("/api/v1")
+	corsConfig := cors.Config{
+		AllowOrigins:    []string{config.Envs.FE_URL},
+		AllowOriginFunc: func(origin string) bool {
+			return origin == config.Envs.FE_URL
+		},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}
+	router.Use(cors.New(corsConfig))
 
-		// all router
+	api := router.Group("/api/" + config.Envs.APP_VERSION)
+	{
 		auth.AuthRouter(api, DB)
 		categories.CategoryRouter(api, DB)
 		story.StoryRouter(api, DB)
+	}
 
-		port := os.Getenv("PORT")
-		router.Run(":" + port)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3001"
+	}
+
+	router.Run(":" + port)
 }
