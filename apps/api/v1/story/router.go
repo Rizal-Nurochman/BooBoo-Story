@@ -1,6 +1,7 @@
 package story
 
 import (
+	"github.com/BooBooStory/v1/creators"
 	"github.com/BooBooStory/v1/story/bookmarks"
 	rarewords "github.com/BooBooStory/v1/story/rareWords"
 	"github.com/BooBooStory/v1/story/stories"
@@ -15,4 +16,8 @@ func StoryRouter(rg *gin.RouterGroup, db *gorm.DB) {
 	stories.StoriesRouter(rg, db)
 	rarewords.RareWordsRouter(rg, db)
 	bookmarks.BookmarkRouter(rg, db)
+
+	// creator router
+	rg = rg.Group("/creators")
+	creators.CreatorRouter(rg, db)
 }

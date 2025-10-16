@@ -8,7 +8,6 @@ import (
 
 
 func StoriesRouter(api *gin.RouterGroup, DB *gorm.DB) {
-	// story
 	storyRepo := NewRepository(DB)
 	storyService := NewService(storyRepo)
 	storyHandler := NewHandler(storyService)

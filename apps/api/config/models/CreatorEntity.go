@@ -20,7 +20,7 @@ type Creator struct {
 	LinkedInURL  string
 	Portfolio    string
 	IsVerified   bool			`gorm:"default:false"`
-	Status       string 	`gorm:"default:'active'"`
+	Status       string 	`gorm:"default:active"`
 
 	UserID       uint     `gorm:"unique"`
 	User         *User    `gorm:"foreignKey:UserID"`
