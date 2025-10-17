@@ -23,6 +23,7 @@ func InitMiddleware(DB *gorm.DB) {
 func RequireAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString, err := c.Cookie("access_token")
+			fmt.Println("User ID dari context:", tokenString)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized: Token not provided"})
 			return

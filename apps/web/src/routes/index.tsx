@@ -6,6 +6,8 @@ import ReadSection from '@/components/home/ReadSection'
 import FaqSection from '@/components/home/FaqSection'
 import AuthorSection from '@/components/home/AuthorSection'
 
+
+
 export const Route = createFileRoute('/')({
   component: App,
   ssr: false,
