@@ -24,6 +24,7 @@ type Service interface {
 	Logout() (string, error)
 	RequestPasswordReset(email string) error
 	VerifyAndResetPassword(input validations.ResetPasswordInput) error
+	Me(user_id uint) (*models.User, error) 
 }
 
 type service struct {
@@ -34,6 +35,18 @@ type service struct {
 func NewService(userRepo users.Repository, emailSvc email.Service) Service {
 	return &service{userRepo, emailSvc}
 }
+
+
+func (s *service) Me(user_id uint) (*models.User, error) {
+	user, err := s.userRepo.FindByID(user_id)
+	if err != nil {
+		return nil, err
+	}
+
+	user.Password = ""
+	return user, nil
+}
+
 
 func (s *service) generateTokenJWT(userID uint) (string, error) {
 	claims := jwt.MapClaims{}

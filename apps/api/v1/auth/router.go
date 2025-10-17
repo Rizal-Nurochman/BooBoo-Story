@@ -2,6 +2,7 @@ package auth
 
 import (
 	"github.com/BooBooStory/config"
+	"github.com/BooBooStory/middleware"
 	email "github.com/BooBooStory/utils"
 	"github.com/BooBooStory/v1/users"
 	"github.com/gin-gonic/gin"
@@ -37,4 +38,9 @@ func AuthRouter(api *gin.RouterGroup, DB *gorm.DB) {
 		authGroup.POST("/forgot-password", authHandler.RequestPasswordReset)
 		authGroup.POST("/reset-password", authHandler.VerifyAndResetPassword)
 	}
+
+	protectedGroup := api.Group("/auth")
+	protectedGroup.Use(middleware.RequireAuth())
+
+	protectedGroup.GET("/me", authHandler.Me)
 }

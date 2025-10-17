@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"time"
 
@@ -16,6 +17,7 @@ type Handler interface {
 	Register(c *gin.Context)
 	Login(c *gin.Context)
 	Logout(c *gin.Context)
+	Me(c *gin.Context)
 	GoogleLoginHandler(c *gin.Context)
 	GoogleCallbackHandler(c *gin.Context)
 	RequestPasswordReset(c *gin.Context)
@@ -52,6 +54,38 @@ func (h *handler) Register(c *gin.Context) {
 		"email": user.Email,
 	}, nil, nil)
 }
+
+func (h *handler) Me(c *gin.Context) {
+	userID, exist := c.Get("user_id")
+	if !exist {
+		utils.JSON(c, http.StatusUnauthorized, "error", "User not authenticated", nil, errors.New("unauthorized"), nil)
+		return
+	}
+
+	id, ok := userID.(uint)
+	if !ok {
+		utils.JSON(c, http.StatusInternalServerError, "error", "Invalid user ID type", nil, errors.New("invalid user_id type"), nil)
+		return
+	}
+
+	user, err := h.service.Me(id)
+	if err != nil {
+		utils.JSON(c, http.StatusNotFound, "error", err.Error(), nil, err.Error(), nil)
+		return
+	}
+
+	utils.JSON(c, http.StatusOK, "success", "User fetched successfully", gin.H{
+		"id":    user.ID,
+		"name":  user.Name,
+		"email": user.Email,
+		"role" : user.Role,
+		"avatar":user.Avatar,
+		"points":user.Points,
+		"streak":user.Streak,
+		"level":user.Level,
+	}, nil, nil)
+}
+
 
 func (h *handler) Login(c *gin.Context) {
 	var req validations.UserLogin
