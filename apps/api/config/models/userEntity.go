@@ -2,7 +2,6 @@ package models
 
 import (
 	"time"
-	"gorm.io/datatypes"
 )
 
 type User struct {
@@ -11,10 +10,10 @@ type User struct {
 	Email     string          `gorm:"unique"`
 	Password  string
 	Role      string          `gorm:"default:Reader"`
-	Avatar    datatypes.JSON
-	Points    int
-	Streak    int
-	Level     int
+	Avatar    string    `gorm:"default:'https://images.unsplash.com/photo-1628260412297-a3377e45006f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1074'"`
+	Points    int       `gorm:"default:0"`
+	Streak    int       `gorm:"default:0"`
+	Level     int       `gorm:"default:1"`
 	
 
 	ResetPasswordToken          string    `gorm:"index"`

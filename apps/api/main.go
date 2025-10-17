@@ -25,14 +25,11 @@ func main() {
 	router := gin.Default()
 
 	corsConfig := cors.Config{
-		AllowOrigins:    []string{config.Envs.FE_URL},
-		AllowOriginFunc: func(origin string) bool {
-			return origin == config.Envs.FE_URL
-		},
+		AllowOrigins:     []string{config.Envs.FE_URL},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
+		AllowCredentials: true, 
 		MaxAge:           12 * time.Hour,
 	}
 	router.Use(cors.New(corsConfig))

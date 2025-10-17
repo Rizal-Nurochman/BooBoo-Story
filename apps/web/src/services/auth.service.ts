@@ -10,8 +10,11 @@ export const AuthService = {
     });
   },
 
-  async me(): Promise<ApiResponse<{ id: string; email: string }>> {
-    return apiRequest("/auth/me");
+  async me(cookie?:string): Promise<ApiResponse<{ id: string; email: string }>> {
+    return apiRequest("/auth/me", {
+      method:'GET',
+      cookie
+    });
   },
   async register(data: registerSchemaType): Promise<ApiResponse<{ name: string; email: string }>> {
     return apiRequest<{ name: string; email: string }>("/auth/register", {
