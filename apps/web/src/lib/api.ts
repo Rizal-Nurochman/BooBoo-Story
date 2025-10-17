@@ -21,6 +21,7 @@ export async function apiRequest<T = any>(
         ...headers,
       },
       body: method !== "GET" ? JSON.stringify(data) : undefined,
+      credentials:"include",
     });
 
     const result = await res.json();
