@@ -4,11 +4,13 @@ import viteReact from '@vitejs/plugin-react'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePluginFonts } from 'vite-plugin-fonts'
+import netlify from '@netlify/vite-plugin-tanstack-start'
 
 export default defineConfig({
   plugins: [
     tailwindcss(),
     tanstackStart(),
+    netlify(),
     viteReact(),
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
