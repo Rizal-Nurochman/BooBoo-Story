@@ -1,4 +1,3 @@
-import Header from '@/components/layout/Header'
 import HeaderApp from '@/components/app/HeaderApp'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 import { Client } from '@/components/ui/Client'

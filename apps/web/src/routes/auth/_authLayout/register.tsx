@@ -24,7 +24,7 @@ function RouteComponent() {
           <p className="text-muted-foreground text-xs sm:text-sm text-center opacity-80 font-medium leading-relaxed max-w-[95%] mx-auto lg:mx-0">
             Yuk, jadi bagian dari dunia penuh cerita dan warna!  
             Dengan bergabung bersama Bobo, kamu bisa membaca kisah seru,  
-            belajar hal-hal baru, dan menjelajahi dunia imajinasi yang tak terbatas!
+            belajar hal-hal baru, dpnpan menjelajahi dunia imajinasi yang tak terbatas!
           </p>
         </div>
         <RegisterForm />

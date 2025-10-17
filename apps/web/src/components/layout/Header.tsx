@@ -6,7 +6,7 @@ const Header = () => {
 
   const { pathname }=useLocation()
 
-  if(pathname.includes('/app/')) return null
+  if(pathname !=="/") return null
 
   return (
     <motion.header 

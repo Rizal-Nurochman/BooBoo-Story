@@ -8,8 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UserProfileRouteImport } from './routes/user/profile'
@@ -31,19 +29,6 @@ import { Route as AuthAuthLayoutCreatorRouteImport } from './routes/auth/_authLa
 import { Route as AppAppLayoutBooksIndexRouteImport } from './routes/app/_appLayout/books/index'
 import { Route as AppAppLayoutBooksCreateRouteImport } from './routes/app/_appLayout/books/create'
 
-const AuthRouteImport = createFileRoute('/auth')()
-const AppRouteImport = createFileRoute('/app')()
-
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -186,9 +171,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/api/ai': typeof ApiAiRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
-  '/app': typeof AppRouteWithChildren
   '/app/_appLayout': typeof AppAppLayoutRouteWithChildren
-  '/auth': typeof AuthRouteWithChildren
   '/auth/_authLayout': typeof AuthAuthLayoutRouteWithChildren
   '/creators/dashboard': typeof CreatorsDashboardRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -253,9 +236,7 @@ export interface FileRouteTypes {
     | '/'
     | '/api/ai'
     | '/api/demo-names'
-    | '/app'
     | '/app/_appLayout'
-    | '/auth'
     | '/auth/_authLayout'
     | '/creators/dashboard'
     | '/demo/tanstack-query'
@@ -277,8 +258,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiAiRoute: typeof ApiAiRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
-  AppRoute: typeof AppRouteWithChildren
-  AuthRoute: typeof AuthRouteWithChildren
   CreatorsDashboardRoute: typeof CreatorsDashboardRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   UserAchievementsRoute: typeof UserAchievementsRoute
@@ -291,20 +270,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -356,14 +321,14 @@ declare module '@tanstack/react-router' {
     }
     '/auth/_authLayout': {
       id: '/auth/_authLayout'
-      path: '/auth'
+      path: ''
       fullPath: '/auth'
       preLoaderRoute: typeof AuthAuthLayoutRouteImport
       parentRoute: typeof AuthRoute
     }
     '/app/_appLayout': {
       id: '/app/_appLayout'
-      path: '/app'
+      path: ''
       fullPath: '/app'
       preLoaderRoute: typeof AppAppLayoutRouteImport
       parentRoute: typeof AppRoute
@@ -441,64 +406,10 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AppAppLayoutRouteChildren {
-  AppAppLayoutBooksCreateRoute: typeof AppAppLayoutBooksCreateRoute
-  AppAppLayoutBooksIndexRoute: typeof AppAppLayoutBooksIndexRoute
-}
-
-const AppAppLayoutRouteChildren: AppAppLayoutRouteChildren = {
-  AppAppLayoutBooksCreateRoute: AppAppLayoutBooksCreateRoute,
-  AppAppLayoutBooksIndexRoute: AppAppLayoutBooksIndexRoute,
-}
-
-const AppAppLayoutRouteWithChildren = AppAppLayoutRoute._addFileChildren(
-  AppAppLayoutRouteChildren,
-)
-
-interface AppRouteChildren {
-  AppAppLayoutRoute: typeof AppAppLayoutRouteWithChildren
-}
-
-const AppRouteChildren: AppRouteChildren = {
-  AppAppLayoutRoute: AppAppLayoutRouteWithChildren,
-}
-
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
-
-interface AuthAuthLayoutRouteChildren {
-  AuthAuthLayoutCreatorRoute: typeof AuthAuthLayoutCreatorRoute
-  AuthAuthLayoutForgotPasswordRoute: typeof AuthAuthLayoutForgotPasswordRoute
-  AuthAuthLayoutLoginRoute: typeof AuthAuthLayoutLoginRoute
-  AuthAuthLayoutRegisterRoute: typeof AuthAuthLayoutRegisterRoute
-}
-
-const AuthAuthLayoutRouteChildren: AuthAuthLayoutRouteChildren = {
-  AuthAuthLayoutCreatorRoute: AuthAuthLayoutCreatorRoute,
-  AuthAuthLayoutForgotPasswordRoute: AuthAuthLayoutForgotPasswordRoute,
-  AuthAuthLayoutLoginRoute: AuthAuthLayoutLoginRoute,
-  AuthAuthLayoutRegisterRoute: AuthAuthLayoutRegisterRoute,
-}
-
-const AuthAuthLayoutRouteWithChildren = AuthAuthLayoutRoute._addFileChildren(
-  AuthAuthLayoutRouteChildren,
-)
-
-interface AuthRouteChildren {
-  AuthAuthLayoutRoute: typeof AuthAuthLayoutRouteWithChildren
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthAuthLayoutRoute: AuthAuthLayoutRouteWithChildren,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiAiRoute: ApiAiRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
-  AppRoute: AppRouteWithChildren,
-  AuthRoute: AuthRouteWithChildren,
   CreatorsDashboardRoute: CreatorsDashboardRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   UserAchievementsRoute: UserAchievementsRoute,

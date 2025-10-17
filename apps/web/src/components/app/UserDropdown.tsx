@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import {
   DropdownMenu,
@@ -9,7 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from '../ui/button'
-import { ArrowLeftToLine } from 'lucide-react'
+import { ArrowRightToLine, Loader2 } from 'lucide-react'
+import { useState } from 'react'
+import { sleep } from '@/lib/api'
+import { AuthService } from '@/services/auth.service'
+import { Route } from '@/routes/__root'
 
 const user = {
   name: "Kristin Watson",
@@ -20,11 +24,27 @@ const user = {
   avatar: "https://github.com/shadcn.png",
 }
 
-const handleLogout = () => {
-  console.log("User logged out (dummy)")
-}
 
 const UserDropdown = () => {
+  const { user }=Route.useRouteContext()
+
+  const [loading, setLoading]=useState(false)
+  const navigate=useNavigate()
+
+  const handleLogout=async()=>{
+    setLoading(true)
+    await sleep()
+    await AuthService.logout()
+    setLoading(false)    
+    navigate({ to:'/auth/login' })
+  }
+
+
+  if(!user){
+    return null
+  }
+
+
   return (
     <div>
       <DropdownMenu>
@@ -76,9 +96,11 @@ const UserDropdown = () => {
 
           <DropdownMenuSeparator />
 
-          <Button variant={'destructive'} className='w-full flex gap-2 items-center cursor-pointer'>
-            <ArrowLeftToLine size={20} />
-            <span>Logout</span>
+          <Button onClick={handleLogout} variant={'destructive'} disabled={loading} className='w-full flex gap-2 items-center cursor-pointer active:scale-95'>
+             {loading? <Loader2 className='animate-spin size-4' />:<>
+              <span>Logout</span>
+              <ArrowRightToLine size={20} />
+             </>}
           </Button>
         </DropdownMenuContent>
       </DropdownMenu>

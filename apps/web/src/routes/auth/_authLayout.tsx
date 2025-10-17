@@ -1,8 +1,23 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { fetchUserLogin } from '@/actions/auth.action'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/auth/_authLayout')({
   component: AuthLayout,
   ssr: false,
+  beforeLoad:async()=>{
+    // const user=await fetchUserLogin()
+
+    // if (user){
+    //   throw redirect({
+    //     to:'/app/books',
+    //     search:{
+    //       page:1,
+    //       limit:10,
+    //       q:""
+    //     }
+    //   })
+    // }
+  }
 })
 
 

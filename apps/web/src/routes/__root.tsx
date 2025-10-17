@@ -2,6 +2,7 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useNavigate,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanstackDevtools } from '@tanstack/react-devtools'
@@ -17,29 +18,18 @@ import type { QueryClient } from '@tanstack/react-query'
 import BackToTop from '@/components/layout/BackToTop'
 import NotfoundPage from '@/components/layout/NotfoundPage'
 import { Toaster } from '@/components/ui/sonner'
-import { AuthService } from '@/services/auth.service'
-import { createServerFn } from '@tanstack/react-start'
-import { getCookie } from '@tanstack/react-start/server'
+import { fetchUserLogin } from '@/actions/auth.action'
 
-const fetchUserLogin=createServerFn({ method:'GET' }).handler(async()=>{
-  const cookie = getCookie('access_token') 
-  console.log('ck', cookie)
-  const res=await AuthService.me(cookie)
-  console.log(res)
-  return{
-    user:res
-  }
-})
 interface MyRouterContext {
   queryClient: QueryClient
 }
 
-
-
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad : async ()=>{
-    const user=fetchUserLogin()
-    return {user}
+    const user=await fetchUserLogin()
+    return {
+       ...user
+    }
   },
   head: () => ({
     meta: [

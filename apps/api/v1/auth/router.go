@@ -32,7 +32,7 @@ func AuthRouter(api *gin.RouterGroup, DB *gorm.DB) {
 	{
 		authGroup.POST("/register", authHandler.Register)
 		authGroup.POST("/login", authHandler.Login)
-		authGroup.POST("/logout", authHandler.Logout)
+		authGroup.DELETE("/logout", authHandler.Logout)
 		authGroup.GET("/google/login", authHandler.GoogleLoginHandler)
 		authGroup.GET("/google/callback", authHandler.GoogleCallbackHandler)
 		authGroup.POST("/forgot-password", authHandler.RequestPasswordReset)

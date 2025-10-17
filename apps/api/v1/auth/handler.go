@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/BooBooStory/config"
 	validations "github.com/BooBooStory/config/validations"
 	"github.com/BooBooStory/utils"
 	"github.com/gin-gonic/gin"
@@ -100,7 +101,7 @@ func (h *handler) Login(c *gin.Context) {
 		Path:     "/",
 		MaxAge:   30 * 24 * 3600,
 		HttpOnly: true,
-		Secure:   false, // ubah ke true jika FE sudah pakai HTTPS
+		Secure:   config.Envs.APP_ENV == "production", // ubah ke true jika FE sudah pakai HTTPS
 		SameSite: http.SameSiteLaxMode,
 	})
 
@@ -118,7 +119,7 @@ func (h *handler) Logout(c *gin.Context) {
 		Path:     "/",
 		MaxAge:   -1,
 		HttpOnly: true,
-		Secure:   false, // ubah ke true jika FE sudah pakai HTTPS
+		Secure:   config.Envs.APP_ENV == "production", // ubah ke true jika FE sudah pakai HTTPS
 		SameSite: http.SameSiteLaxMode,
 	})
 	utils.JSON(c, http.StatusOK, "success", "logout successful", nil, nil, nil)
@@ -164,7 +165,7 @@ func (h *handler) GoogleCallbackHandler(c *gin.Context) {
 		Path:     "/",
 		MaxAge:   30 * 24 * 3600,
 		HttpOnly: true,
-		Secure:   false,
+		Secure:   config.Envs.APP_ENV == "production",
 		SameSite: http.SameSiteLaxMode,
 	})
 

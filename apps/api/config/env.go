@@ -19,6 +19,7 @@ type Env struct {
 	SmtpUser         string
 	SmtpPassword     string
 	SmtpSenderEmail  string
+	APP_ENV			 string
 }
 
 var Envs Env
@@ -42,5 +43,6 @@ func LoadEnv() {
 		SmtpPassword:    os.Getenv("SMTP_PASSWORD"),
 		SmtpSenderEmail: os.Getenv("SMTP_SENDER_EMAIL"),
 		APP_VERSION:     os.Getenv("APP_VERSION"),
+		APP_ENV: 		 os.Getenv("APP_ENV"),
 	}
 }

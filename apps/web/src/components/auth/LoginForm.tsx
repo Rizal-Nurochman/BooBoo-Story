@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Eye, EyeOff } from "lucide-react"
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import GoogleIcon from "../ui/GoogleIcon"
 import { AuthService } from "@/services/auth.service"
 import { toast } from "sonner"
@@ -14,6 +14,7 @@ import { sleep } from "@/lib/api"
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const navigate=useNavigate()
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
@@ -39,10 +40,11 @@ const LoginForm = () => {
 
     async function onSubmit (data: LoginSchemaType) {
       await sleep();
-     const res= await AuthService.login(data)
+      const res= await AuthService.login(data)
      if (res.status === 'error') {
       toast.error(res.message || 'Gagal masuk. Silakan coba lagi.')
      }else{
+      navigate({ to:'/app/books', search:{ page:1, limit:10 , q:"" } })
       toast.success('Berhasil masuk. Selamat datang kembali!')
      }
   }

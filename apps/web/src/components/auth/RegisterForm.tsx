@@ -6,13 +6,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Eye, EyeOff } from "lucide-react"
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import GoogleIcon from "../ui/GoogleIcon"
 import { toast } from "sonner"
 import { AuthService } from "@/services/auth.service"
 import { sleep } from "@/lib/api"
 
 const RegisterForm = () => {
+  const navigate=useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -67,6 +68,8 @@ const RegisterForm = () => {
     if (res.status === 'error') {
       toast.error(res.message || 'Gagal masuk. Silakan coba lagi.')
    }else{
+      await AuthService.login({ email:data.email, password:data.password })
+      navigate({ to:'/app/books', search:{ page:1, limit:10, q:"" } })
       toast.success('Berhasil daftar, selamat datang '+res.data?.name)
    }
   }

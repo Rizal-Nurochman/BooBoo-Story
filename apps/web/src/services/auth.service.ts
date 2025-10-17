@@ -10,16 +10,21 @@ export const AuthService = {
     });
   },
 
-  async me(cookie?:string): Promise<ApiResponse<{ id: string; email: string }>> {
-    return apiRequest("/auth/me", {
+  async me(cookie?:string): Promise<ApiResponse<User>> {
+    return apiRequest<User>("/auth/me", {
       method:'GET',
       cookie
     });
   },
-  async register(data: registerSchemaType): Promise<ApiResponse<{ name: string; email: string }>> {
-    return apiRequest<{ name: string; email: string }>("/auth/register", {
+  async register(data: registerSchemaType): Promise<ApiResponse<User>> {
+    return apiRequest<User>("/auth/register", {
       method: "POST",
       data,
     });
-  }
+  },
+  async logout(): Promise<ApiResponse<null>> {
+    return apiRequest<null>("/auth/logout", {
+      method: "DELETE",
+    });
+  },
 };
