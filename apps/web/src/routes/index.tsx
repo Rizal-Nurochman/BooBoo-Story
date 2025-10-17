@@ -15,9 +15,9 @@ export const Route = createFileRoute('/')({
   beforeLoad:async()=>{
     const user=await fetchUserLogin()
 
-    if(user){
-      throw redirect({ to:'/app/books',search:{ page:1, limit:10, q:'' } })
-    }
+    // if(user){
+    //   throw redirect({ to:'/app/books',search:{ page:1, limit:10, q:'' } })
+    // }
   }
 })
 
