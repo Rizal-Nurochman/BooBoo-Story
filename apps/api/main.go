@@ -10,6 +10,7 @@ import (
 	"github.com/BooBooStory/utils"
 	"github.com/BooBooStory/v1/auth"
 	"github.com/BooBooStory/v1/categories"
+	"github.com/BooBooStory/v1/creators"
 	"github.com/BooBooStory/v1/story"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,9 @@ func main() {
 		auth.AuthRouter(api, DB)
 		categories.CategoryRouter(api, DB)
 		story.StoryRouter(api, DB)
+		creators.CreatorRouter(api, DB)
+		story.ReaderRouter(api, DB)
+		story.QuizRouter(api, DB)
 	}
 
 	port := os.Getenv("PORT")

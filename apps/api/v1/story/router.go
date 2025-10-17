@@ -13,18 +13,23 @@ import (
 
 
 func StoryRouter(rg *gin.RouterGroup, db *gorm.DB) {
-	// all story router
-	rg_story := rg.Group("/story")
-	stories.StoriesRouter(rg_story, db)
-	rarewords.RareWordsRouter(rg_story, db)
-	bookmarks.BookmarkRouter(rg_story, db)
-	quizs.QuizsRouter(rg_story, db)
+	rg = rg.Group("/story")
+	stories.StoriesRouter(rg, db)
+	rarewords.RareWordsRouter(rg, db)
+	bookmarks.BookmarkRouter(rg, db)
+}
 
-	// creator router
-	rg_creators := rg.Group("/creators")
-	creators.CreatorRouter(rg_creators, db)
+func CreatorRouter(rg *gin.RouterGroup, db *gorm.DB) {
+	rg = rg.Group("/creators")
+	creators.CreatorRouter(rg, db)
+}
 
-	// reader router
-	rg_readers := rg.Group("/readers")
-	progresses.ProgressReadRouter(rg_readers, db)
+func ReaderRouter(rg *gin.RouterGroup, db *gorm.DB) {
+	rg = rg.Group("/readers")
+	progresses.ProgressReadRouter(rg, db)
+}
+
+func QuizRouter(rg *gin.RouterGroup, db *gorm.DB) {
+	rg = rg.Group("/story")
+	quizs.QuizsRouter(rg, db)
 }
