@@ -10,5 +10,5 @@ type Answer struct {
 	QuestionID uint
 
 	// Relasi Belongs To
-	Question Question `gorm:"foreignKey:QuestionID"`
+	Question Question `gorm:"foreignKey:QuestionID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }

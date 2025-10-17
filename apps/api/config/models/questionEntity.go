@@ -11,5 +11,5 @@ type Question struct {
 	// Relasi Belongs To
 	Quiz Quiz `gorm:"foreignKey:QuizID"`
 	// Relasi Has Many
-	Answers []Answer `gorm:"foreignKey:QuestionID"`
+	Answers []Answer `gorm:"foreignKey:QuestionID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
