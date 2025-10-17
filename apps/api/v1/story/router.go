@@ -2,6 +2,7 @@ package story
 
 import (
 	"github.com/BooBooStory/v1/creators"
+	"github.com/BooBooStory/v1/readers/progresses"
 	"github.com/BooBooStory/v1/story/bookmarks"
 	rarewords "github.com/BooBooStory/v1/story/rareWords"
 	"github.com/BooBooStory/v1/story/stories"
@@ -12,12 +13,16 @@ import (
 
 func StoryRouter(rg *gin.RouterGroup, db *gorm.DB) {
 	// all story router
-	rg = rg.Group("/story")
-	stories.StoriesRouter(rg, db)
-	rarewords.RareWordsRouter(rg, db)
-	bookmarks.BookmarkRouter(rg, db)
+	rg_story := rg.Group("/story")
+	stories.StoriesRouter(rg_story, db)
+	rarewords.RareWordsRouter(rg_story, db)
+	bookmarks.BookmarkRouter(rg_story, db)
 
 	// creator router
-	rg = rg.Group("/creators")
-	creators.CreatorRouter(rg, db)
+	rg_creators := rg.Group("/creators")
+	creators.CreatorRouter(rg_creators, db)
+
+	// reader router
+	rg_readers := rg.Group("/readers")
+	progresses.ProgressReadRouter(rg_readers, db)
 }
